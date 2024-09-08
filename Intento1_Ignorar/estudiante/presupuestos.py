@@ -1,7 +1,4 @@
-from django.core.serializers import json
-
-
-# Funciones para el manejo de presupuestos
+#Funciones para el manejo de presupuestos
 def leerPresupuestos():
     try:
         with open("presupuestos.txt", "r") as archivo:
@@ -15,6 +12,7 @@ def leerPresupuestos():
     except FileNotFoundError:
         return {"alimentacion": 0, "transporte": 0, "vivienda": 0, "implementos": 0}
 
+#funcion para guardar los presupuestos en el txt
 def guardarPresupuestos(presupuestos):
     with open("presupuestos.txt", "w") as archivo:
         archivo.write(f"{presupuestos['alimentacion']}\n")

@@ -258,23 +258,6 @@
               </div>
             </div><!-- End Sales Card -->
             <!-- Revenue Card -->
-              <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            fetch('http://127.0.0.1:5000/presupuesto')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    document.getElementById('presupuesto_usuario').textContent = `$${data.presupuesto_total}`;
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        });
-    </script>
             <div class="col-xxl-4 col-xl-4 col-md-4">
               <div class="card info-card revenue-card">
                 <div class="card-body">
