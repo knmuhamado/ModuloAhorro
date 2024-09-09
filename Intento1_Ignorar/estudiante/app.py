@@ -7,7 +7,6 @@ CORS(app)  # Habilita CORS para todas las rutas
 
 @app.route('/presupuesto', methods=['GET'])
 def get_presupuesto():
-
     total = mostrarTotal()
     return jsonify({"presupuesto_total": total})
 

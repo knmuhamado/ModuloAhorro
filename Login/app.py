@@ -4,10 +4,13 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/procesar_datos', methods=['POST'])
+@app.route('/procesar_datos', methods=['GET'])
 def procesar_datos():
-    nombre = request.form['nombre']
-    return jsonify({"mensaje Hola mundo"})
+    #Obtener datos del formulario
+
+    return jsonify({"mensaje": "mensaje Hola mundo"})
+
+
 
 if __name__ == '__main__':
       app.run(debug=True)
