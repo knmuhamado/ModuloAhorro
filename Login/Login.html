@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+    <title>SmartSpends</title>
+    <link rel="stylesheet" href="stylelogin.css">
+
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/favicon.png" rel="favicon">
+</head>
+
+<body>
+    <div id="container">
+        <!-- Cover Box -->
+        <div id="cover">
+            <!-- Sign Up Section -->
+            <h1 class="sign-up">¿Estas listo para ahorrar?</h1>
+            <p class="sign-up">Si no tienes una cuenta ven <br> y registrate aqui con nosotros</p>
+            <a class="button sign-up" href="#cover">Registrate</a>
+            <!-- Sign In Section -->
+            <h1 class="sign-in">¡Bienvenido de vuelta!</h1>
+            <p class="sign-in">Si ya tienes una cuenta porfavor<br> ingresa aqui</p>
+            <br>
+            <a class="button sub sign-in" href="#">Ingresar</a>
+
+        </div>
+
+        <div id="login">
+            <h1>Ingresar</h1>
+            <p></p>
+            <form action="/procesar_datos" method="POST">
+                <input type="text" placeholder="Usuario" name="nombre"><br>
+                <input type="password" placeholder="Password" name="password"><br>
+                <input class="submit-btn" type="submit" value="Ingresar" name="ingresar">
+            </form>
+        </div>
+
+</body>
+
+</html>
