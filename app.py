@@ -114,5 +114,41 @@ def editar_presupuesto():
         return jsonify({"success": False, "message": str(e)}), 500
 
 
+@app.route('/editar_gasto', methods=['POST'])
+def editar_gasto():
+    data = request.get_json()
+    usuario = name
+    categoria = data.get('categoria')
+    nuevo_gasto = data.get('nuevoGasto')
+
+    if not categoria or not nuevo_gasto:
+        return jsonify({"success": False, "message": "Datos incompletos"}), 400
+
+    try:
+        # Leer el archivo de presupuestos
+        with open("estudianteFiles/gastos.txt", "r") as archivo:
+            gastos = json.load(archivo)
+
+        # Verificar si el usuario existe en el archivo
+        if usuario not in gastos:
+            return jsonify({"success": False, "message": "Usuario no encontrado"}), 404
+
+        # Verificar si la categoría existe para ese usuario
+        if categoria not in gastos[usuario]:
+            return jsonify({"success": False, "message": "Categoría no encontrada"}), 404
+
+        # Actualizar el presupuesto de la categoría seleccionada para ese usuario
+        gastos[usuario][categoria] = float(nuevo_gasto)
+
+        # Guardar los cambios en el archivo
+        with open("estudianteFiles/presupuestos.txt", "w") as archivo:
+            json.dump(gastos, archivo)
+
+        return jsonify({"success": True})
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
+    
+
+
 if __name__ == '__main__':
     app.run(debug=True)

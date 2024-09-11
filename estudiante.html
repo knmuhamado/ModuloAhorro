@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
+  <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>SmartSpends</title>
   <meta content="" name="description">
@@ -12,7 +13,9 @@
   <link href="assets/img/favicon.png" rel="favicon">
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -23,7 +26,7 @@
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: Jan 29 2024 with Bootstrap v5.3.2
@@ -32,41 +35,43 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
+
 <body>
-<!-- ======= Header ======= -->
-<header id="header" class="header fixed-top d-flex align-items-center">
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="d-flex align-items-center justify-content-between">
-            <span class="d-none d-lg-block">INICIO</span>
-        <i class="bi bi-list toggle-sidebar-btn"></i>
+      <span class="d-none d-lg-block">INICIO</span>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
     <nav class="header-nav ms-auto">
-        <ul class="d-flex align-items-center">
-            <li class="nav-item dropdown">
-                <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                    <i class="bi bi-bell"></i>
-                    <span class="badge bg-primary badge-number" id="notificationCount"></span>
-                </a><!-- End Notification Icon -->
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications" aria-labelledby="navbarDropdown" id="notificationDropdown">
+      <ul class="d-flex align-items-center">
+        <li class="nav-item dropdown">
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-bell"></i>
+            <span class="badge bg-primary badge-number" id="notificationCount"></span>
+          </a><!-- End Notification Icon -->
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications" aria-labelledby="navbarDropdown"
+            id="notificationDropdown">
 
-                </ul><!-- End Notification Dropdown Items -->
-            </li><!-- End Notification Nav -->
+          </ul><!-- End Notification Dropdown Items -->
+        </li><!-- End Notification Nav -->
 
-            <script>
-                $(document).ready(function() {
-                    // Función para cargar las notificaciones
-                    function loadNotifications() {
-                        $.ajax({
-                            url: 'notificaciones.php',
-                            type: 'GET',
-                            dataType: 'json', // Especificamos que esperamos JSON como respuesta
-                            success: function(response) {
-                                // Actualizar el contador de notificaciones
-                                $('#notificationCount').text(response.length);
+        <script>
+          $(document).ready(function () {
+            // Función para cargar las notificaciones
+            function loadNotifications() {
+              $.ajax({
+                url: 'notificaciones.php',
+                type: 'GET',
+                dataType: 'json', // Especificamos que esperamos JSON como respuesta
+                success: function (response) {
+                  // Actualizar el contador de notificaciones
+                  $('#notificationCount').text(response.length);
 
-                                // Vaciar el contenedor de notificaciones
-                                $('#notificationDropdown').empty();
+                  // Vaciar el contenedor de notificaciones
+                  $('#notificationDropdown').empty();
 
-                                $('#notificationDropdown').append(`
+                  $('#notificationDropdown').append(`
                                     <li class="dropdown-header">
                                             Tienes ${response.length} notificaciones nuevas
                                             <a href="#" style="text-decoration: none;"><span class="badge rounded-pill bg-primary p-2 ms-2" style="opacity: 0; border: none;" disabled>Ver todo</span></a>
@@ -74,9 +79,9 @@
                                     <li><hr class="dropdown-divider"></li>
                                 `);
 
-                                // Agregar las nuevas notificaciones
-                                response.forEach(function(notification) {
-                                    $('#notificationDropdown').append(`
+                  // Agregar las nuevas notificaciones
+                  response.forEach(function (notification) {
+                    $('#notificationDropdown').append(`
                                         <li class="notification-item">
                                             <i class="bi bi-${notification.icon} text-${notification.color}"></i>
                                             <div>
@@ -87,74 +92,79 @@
                                         </li>
                                         <li><hr class="dropdown-divider"></li>
                                     `);
-                                });
-                            },
-                            error: function(xhr, status, error) {
-                                console.error('Error al cargar las notificaciones:', error);
-                            }
-                        });
-                    }
+                  });
+                },
+                error: function (xhr, status, error) {
+                  console.error('Error al cargar las notificaciones:', error);
+                }
+              });
+            }
 
-                    // Cargar las notificaciones al cargar la página
-                    loadNotifications();
+            // Cargar las notificaciones al cargar la página
+            loadNotifications();
 
-                    // Actualizar las notificaciones cada cierto tiempo (por ejemplo, cada 5 segundos)
-                    setInterval(function() {
-                        loadNotifications();
-                    }, 5000);
-                });
-            </script>
+            // Actualizar las notificaciones cada cierto tiempo (por ejemplo, cada 5 segundos)
+            setInterval(function () {
+              loadNotifications();
+            }, 5000);
+          });
+        </script>
 
 
-            <li class="nav-item dropdown pe-3">
+        <li class="nav-item dropdown pe-3">
 
-                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
 
-                    <span class="d-none d-md-block dropdown-toggle ps-2"><?php
+            <span class="d-none d-md-block dropdown-toggle ps-2">
+              <?php
                         if(isset($_SESSION['usuario'])) {
                             echo $_SESSION['usuario'];
                         }
                         ?>
-                    </span>
-                </a>
+            </span>
+          </a>
 
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                    <li class="dropdown-header">
-                        <h6><?php
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>
+                <?php
 
                             if(isset($_SESSION['usuario'])) {
                                 echo $_SESSION['usuario'];
                             }
-                            ?></h6>
-                        <span><?php echo($codigo); ?></span>
+                            ?>
+              </h6>
+              <span>
+                <?php echo($codigo); ?>
+              </span>
 
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
 
 
 
 
 
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
 
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
-                            <i class="bi bi-box-arrow-right"></i>
-                            <span>Sign Out</span>
-                        </a>
-                    </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="#">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
 
-                </ul><!-- End Profile Dropdown Items -->
-            </li><!-- End Profile Nav -->
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
 
-        </ul>
+      </ul>
     </nav><!-- End Icons Navigation -->
 
-</header><!-- End Header -->
+  </header><!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
@@ -170,7 +180,7 @@
         </a>
       </li>
 
-        <li class="nav-item">
+      <li class="nav-item">
         <a class="nav-link collapsed">
           <i class="bi bi-bus-front"></i>
           <span>Transporte</span>
@@ -221,10 +231,12 @@
                       <h6>Actualizar</h6>
                     </li>
                     <li>
-                        <form action="estudiante.php" method="POST">
-                      <input type="hidden" value="<?php echo (isset($sumaTotalG) ? $sumaTotalG : 0); ?>" name="presupuestoProm">
-                      <input type="submit" class="dropdown-item" href="#" name="actualizarSemanas" value="Nueva semana" onclick="recargarPaginas()">
-                    </form>
+                      <form action="estudiante.php" method="POST">
+                        <input type="hidden" value="<?php echo (isset($sumaTotalG) ? $sumaTotalG : 0); ?>"
+                          name="presupuestoProm">
+                        <input type="submit" class="dropdown-item" href="#" name="actualizarSemanas"
+                          value="Nueva semana" onclick="recargarPaginas()">
+                      </form>
                     </li>
                   </ul>
                 </div>
@@ -235,15 +247,54 @@
                       <i class="bi bi-cart"></i>
                     </div>
                     <div class="ps-3">
-                      <h6 id="total_gastos"><br>$<?php echo (isset($sumaTotalG) ? $sumaTotalG : 0); ?></h6>
-                        <span id="porcentaje" class="text-success small pt-1 fw-bold"></span> <span class="text-muted small pt-2 ps-1">del presupuesto</span>
+                      <h6 id="total_gastos"><br>$
+                        <?php echo (isset($sumaTotalG) ? $sumaTotalG : 0); ?>
+                      </h6>
+                      <span id="porcentaje" class="text-success small pt-1 fw-bold"></span> <span
+                        class="text-muted small pt-2 ps-1">del presupuesto</span>
+                      <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#modalEditarGastos">
+                        Definir Presupuesto
+                      </button>
+
+                      <div class="modal fade" id="modalEditarGastos" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Editar Gastos por Categoría</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <form id="formEditarGasto">
+                                <div class="mb-3">
+                                  <label for="categoria">Selecciona la categoría:</label>
+                                  <select class="form-select" id="categoriaGasto" name="categoriaGasto" required>
+                                    <option value="" disabled selected>Elige una categoría</option>
+                                    <option value="Alimentacion">Alimentación</option>
+                                    <option value="Transporte">Transporte</option>
+                                    <option value="Entretenimiento">Entretenimiento</option>
+                                    <option value="Ahorro">Ahorro</option>
+                                  </select>
+                                </div>
+                                <div class="mb-3">
+                                  <label for="nuevoGasto">Nuevo valor del Gasto:</label>
+                                  <input type="number" class="form-control" id="nuevoGasto" name="nuevoGasto" required>
+                                </div>
+                                <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
                     </div>
                   </div>
                 </div>
               </div>
             </div><!-- End Sales Card -->
             <!-- Revenue Card -->
-             <div class="col-xxl-4 col-xl-4 col-md-4">
+            <div class="col-xxl-4 col-xl-4 col-md-4">
               <div class="card info-card revenue-card">
                 <div class="card-body">
                   <h5 class="card-title"> Presupuesto <span>| Esta semana</span></h5>
@@ -251,111 +302,125 @@
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bi bi-currency-dollar"></i>
                     </div>
-                    <div class="ps-3"><h6 id="presupuesto_usuario"><br>$</h6>
-                        <button  type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarPresupuesto">
-                            Definir Presupuesto
-                        </button>
-                        <div class="modal fade" id="modalEditarPresupuesto" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Editar Presupuesto por Categoría</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form id="formEditarPresupuesto">
-                                            <div class="mb-3">
-                                                <label for="categoria">Selecciona la categoría:</label>
-                                                <select class="form-select" id="categoria" name="categoria" required>
-                                                    <option value="" disabled selected>Elige una categoría</option>
-                                                    <option value="Alimentacion">Alimentación</option>
-                                                    <option value="Transporte">Transporte</option>
-                                                    <option value="Entretenimiento">Entretenimiento</option>
-                                                    <option value="Ahorro">Ahorro</option>
-                                                </select>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="nuevoPresupuesto">Nuevo valor del presupuesto:</label>
-                                                <input type="number" class="form-control" id="nuevoPresupuesto" name="nuevoPresupuesto" required>
-                                            </div>
-                                            <button type="submit" class="btn btn-success">Guardar Cambios</button>
-                                        </form>
-                                    </div>
-                                </div>
+                    <div class="ps-3">
+                      <h6 id="presupuesto_usuario"><br>$</h6>
+                      <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#modalEditarPresupuesto">
+                        Definir Presupuesto
+                      </button>
+                      <div class="modal fade" id="modalEditarPresupuesto" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Editar Presupuesto por Categoría</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                             </div>
+                            <div class="modal-body">
+                              <form id="formEditarPresupuesto">
+                                <div class="mb-3">
+                                  <label for="categoria">Selecciona la categoría:</label>
+                                  <select class="form-select" id="categoria" name="categoria" required>
+                                    <option value="" disabled selected>Elige una categoría</option>
+                                    <option value="Alimentacion">Alimentación</option>
+                                    <option value="Transporte">Transporte</option>
+                                    <option value="Entretenimiento">Entretenimiento</option>
+                                    <option value="Ahorro">Ahorro</option>
+                                  </select>
+                                </div>
+                                <div class="mb-3">
+                                  <label for="nuevoPresupuesto">Nuevo valor del presupuesto:</label>
+                                  <input type="number" class="form-control" id="nuevoPresupuesto"
+                                    name="nuevoPresupuesto" required>
+                                </div>
+                                <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                              </form>
+                            </div>
+                          </div>
                         </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div><!-- End Revenue Card -->
             <!-- Customers Card -->
-              <div class="col-xxl-4 col-xl-4 col-md-4">
-                  <div class="card info-card customers-card">
-                      <div class="filter">
-                          <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                              <li class="dropdown-header text-start">
-                                  <h6>Actualizar</h6>
-                              </li>
-                              <li>
-                                  <form action="estudiante.php" method="POST">
-                                      <input type="hidden" value="<?php echo (isset($ahorroTotal) ? $ahorroTotal : 0); ?>" name="ahorroEstablecido">
-                                      <input type="submit" class="dropdown-item" href="#" name="retirar" value="Retirar">
-                                  </form>
-                              </li>
-                          </ul>
-                      </div>
-                      <div class="card-body">
-                          <h5 class="card-title">Ahorro<span> | meta: <span id="meta"><?php echo (isset($meta) ? $meta : 0); ?></span></span></h5>
-                          <div class="d-flex align-items-center">
-                              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                  <i class="bi bi-piggy-bank-fill"></i>
-                              </div>
-                              <div class="ps-3">
-                                  <h6 id="ahorroTotal">$<?php echo ($ahorroTotal); ?></h6>
-                                  <span id="porcentajeA" class="text-success small pt-1 fw-bold"></span><span class="text-muted small pt-2 ps-1">de la meta</span>
-                                  <button  type="button" class="btn btn-custom-orange btn-sm" data-bs-toggle="modal" data-bs-target="#modalDefinirMeta">
-                                      Definir Meta
-                                  </button>
-                                  <div class="modal fade" id="modalDefinirMeta" tabindex="-1" aria-hidden="true">
-                                      <div class="modal-dialog">
-                                          <div class="modal-content">
-                                              <div class="modal-header">
-                                                  <h5 class="modal-title">Definir nueva Meta</h5>
-                                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                              </div>
-                                              <div class="modal-body">
-                                                  <!-- Formulario para poner meta de ahorro-->
-                                                  <form action="estudiante.php" method="POST" id="formDefinirMeta">
-                                                      <div class="mb-3">
-                                                          <label for="ahorro">Nueva Meta:</label>
-                                                          <input class="form-control" id="ahorro" name="ahorroEstablecido" type="number" required>
-                                                      </div>
-                                                      <button type="submit" name="registrarAhorro" class="btn btn-success">Registrar</button>
-                                                  </form>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
+            <div class="col-xxl-4 col-xl-4 col-md-4">
+              <div class="card info-card customers-card">
+                <div class="filter">
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <li class="dropdown-header text-start">
+                      <h6>Actualizar</h6>
+                    </li>
+                    <li>
+                      <form action="estudiante.php" method="POST">
+                        <input type="hidden" value="<?php echo (isset($ahorroTotal) ? $ahorroTotal : 0); ?>"
+                          name="ahorroEstablecido">
+                        <input type="submit" class="dropdown-item" href="#" name="retirar" value="Retirar">
+                      </form>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Ahorro<span> | meta: <span id="meta">
+                        <?php echo (isset($meta) ? $meta : 0); ?>
+                      </span></span></h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-piggy-bank-fill"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6 id="ahorroTotal">$
+                        <?php echo ($ahorroTotal); ?>
+                      </h6>
+                      <span id="porcentajeA" class="text-success small pt-1 fw-bold"></span><span
+                        class="text-muted small pt-2 ps-1">de la meta</span>
+                      <button type="button" class="btn btn-custom-orange btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#modalDefinirMeta">
+                        Definir Meta
+                      </button>
+                      <div class="modal fade" id="modalDefinirMeta" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Definir nueva Meta</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <!-- Formulario para poner meta de ahorro-->
+                              <form action="estudiante.php" method="POST" id="formDefinirMeta">
+                                <div class="mb-3">
+                                  <label for="ahorro">Nueva Meta:</label>
+                                  <input class="form-control" id="ahorro" name="ahorroEstablecido" type="number"
+                                    required>
+                                </div>
+                                <button type="submit" name="registrarAhorro" class="btn btn-success">Registrar</button>
+                              </form>
+                            </div>
                           </div>
+                        </div>
                       </div>
+                    </div>
                   </div>
+                </div>
               </div>
-
-              <div class="row">
-            <div class="col-lg-4">
-          <div class="card">
-            <div class="filter">
-            <a class="icon" href="#" data-bs-toggle="modal" data-bs-target="#modalAñadirPendientes"><i class="bi bi-plus-circle"></i></a>
             </div>
-            <div class="card-body">
-              <h5 class="card-title">Pendientes</h5>
-              <div class="activity">
 
-                <div style="height:384px;">
-                <?php
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="card">
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="modal" data-bs-target="#modalAñadirPendientes"><i
+                        class="bi bi-plus-circle"></i></a>
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">Pendientes</h5>
+                    <div class="activity">
+
+                      <div style="height:384px;">
+                        <?php
                 $sqlGetEventos = "SELECT * FROM pendiente WHERE idUsuario='$idUsuario'";
                 $resultado=mysqli_query($conexion, $sqlGetEventos);
                 if($resultado){
@@ -366,177 +431,189 @@
                     $idPendiente = $row['id'];
 
                 ?>
-                  <div class="activity-item d-flex" >
-                      <div class="activite-label"><?php echo($fechaPendiente); ?><br><b> <p>$<?php echo($montoPendiente); ?></p></b></div>
-                      <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                      <div class="activity-content flex-grow-1">
-                          <?php echo($nombrePendiente); ?>
-                              <button class="btn btn-sm btn-outline-danger btn-delete m-3" onclick="eliminarPendiente(<?php echo $idPendiente; ?>)">
-                                  <i class="bi bi-trash"></i>
-                              </button>
-                      </div>
+                        <div class="activity-item d-flex">
+                          <div class="activite-label">
+                            <?php echo($fechaPendiente); ?><br><b>
+                              <p>$
+                                <?php echo($montoPendiente); ?>
+                              </p>
+                            </b>
+                          </div>
+                          <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
+                          <div class="activity-content flex-grow-1">
+                            <?php echo($nombrePendiente); ?>
+                            <button class="btn btn-sm btn-outline-danger btn-delete m-3"
+                              onclick="eliminarPendiente(<?php echo $idPendiente; ?>)">
+                              <i class="bi bi-trash"></i>
+                            </button>
+                          </div>
 
-                </div><!-- End activity item-->
-                <?php
+                        </div><!-- End activity item-->
+                        <?php
                    }
                 }
 
                 ?>
-                  <script>
-                      function eliminarPendiente(idPendiente) {
-                          if (confirm('¿Estás seguro de que deseas eliminar este pendiente?')) {
+                        <script>
+                          function eliminarPendiente(idPendiente) {
+                            if (confirm('¿Estás seguro de que deseas eliminar este pendiente?')) {
                               var button = document.querySelector('button[onclick="eliminarPendiente(' + idPendiente + ')"]');
                               button.disabled = true; // Deshabilitar el botón mientras se procesa la solicitud
 
                               $.ajax({
-                                  url: 'estudiante.php',
-                                  method: 'POST',
-                                  data: { accion: 'eliminar', idPendiente: idPendiente },
-                                  success: function(response) {
-                                      if (response === 'success') {
-                                          alert('Pendiente eliminado correctamente');
-                                          button.closest('.activity-item').remove(); // Eliminar el elemento del DOM sin recargar la página
-                                      } else {
-                                          alert('Error al eliminar el pendiente');
-                                          button.disabled = false; // Rehabilitar el botón si hay un error
-                                      }
-                                  },
-                                  error: function(xhr, status, error) {
-                                      alert('Error al eliminar el pendiente');
-                                      console.error(xhr.responseText);
-                                      button.disabled = false; // Rehabilitar el botón si hay un error
+                                url: 'estudiante.php',
+                                method: 'POST',
+                                data: { accion: 'eliminar', idPendiente: idPendiente },
+                                success: function (response) {
+                                  if (response === 'success') {
+                                    alert('Pendiente eliminado correctamente');
+                                    button.closest('.activity-item').remove(); // Eliminar el elemento del DOM sin recargar la página
+                                  } else {
+                                    alert('Error al eliminar el pendiente');
+                                    button.disabled = false; // Rehabilitar el botón si hay un error
                                   }
+                                },
+                                error: function (xhr, status, error) {
+                                  alert('Error al eliminar el pendiente');
+                                  console.error(xhr.responseText);
+                                  button.disabled = false; // Rehabilitar el botón si hay un error
+                                }
                               });
+                            }
                           }
-                      }
-                  </script>
-                  <div class="modal fade" id="modalAñadirPendientes" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                          <div class="modal-content">
+                        </script>
+                        <div class="modal fade" id="modalAñadirPendientes" tabindex="-1"
+                          aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
                               <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">Añadir pendiente</h5>
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <h5 class="modal-title" id="exampleModalLabel">Añadir pendiente</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                  aria-label="Close"></button>
                               </div>
                               <div class="modal-body">
-                                          <form action="estudiante.php" method="POST">
-                                              <div class="mb-3">
-                                                  <label for="pendiente">Pendiente:</label>
-                                                  <input type="text" class="form-control" id="pendiente" name="nombrePendiente" required>
-                                              </div>
-                                              <div class="mb-3">
-                                                  <label for="monto">Monto:</label>
-                                                  <input type="number" class="form-control" id="monto" name="montoPendiente" placeholder="Monto" min="0" required>
-                                              </div>
-                                              <div class="mb-3">
-                                                  <label for="descripcion">Fecha:</label>
-                                                  <input type="date" class="form-control" id="descripcion" name="fechaPendiente" required>
-                                              </div>
-                                              <button type="submit" class="btn btn-success" name="enviarPendiente">Guardar</button>
-                                          </form>
+                                <form action="estudiante.php" method="POST">
+                                  <div class="mb-3">
+                                    <label for="pendiente">Pendiente:</label>
+                                    <input type="text" class="form-control" id="pendiente" name="nombrePendiente"
+                                      required>
+                                  </div>
+                                  <div class="mb-3">
+                                    <label for="monto">Monto:</label>
+                                    <input type="number" class="form-control" id="monto" name="montoPendiente"
+                                      placeholder="Monto" min="0" required>
+                                  </div>
+                                  <div class="mb-3">
+                                    <label for="descripcion">Fecha:</label>
+                                    <input type="date" class="form-control" id="descripcion" name="fechaPendiente"
+                                      required>
+                                  </div>
+                                  <button type="submit" class="btn btn-success" name="enviarPendiente">Guardar</button>
+                                </form>
                               </div>
+                            </div>
                           </div>
+                        </div>
                       </div>
+                    </div>
                   </div>
-                  </div>
-              </div>
-              </div>
-            </div>
-          </div><!-- End Recent Activity -->
+                </div>
+              </div><!-- End Recent Activity -->
 
 
-          <div class="col-lg-4">
-          <div class="card">
-            <div class="card-body pb-0">
+              <div class="col-lg-4">
+                <div class="card">
+                  <div class="card-body pb-0">
 
-              <h5 class="card-title">Gasto-Presupuesto <span> | Semanal</span></h5>
-              <div id="budgetChart" style="min-height: 400px;" class="echart"></div>
+                    <h5 class="card-title">Gasto-Presupuesto <span> | Semanal</span></h5>
+                    <div id="budgetChart" style="min-height: 400px;" class="echart"></div>
 
-                <script>
+                    <script>
 
 
-                    document.addEventListener("DOMContentLoaded", () => {
+                      document.addEventListener("DOMContentLoaded", () => {
                         var budgetChart = echarts.init(document.querySelector("#budgetChart")).setOption({
-                            legend: {
-                                data: ['Gastos', 'Presupuesto']
-                            },
-                            radar: {
-                                indicator: [
-                                    { name: 'Transporte', max: <?php echo $sumaTotal; ?> },
-                                    { name: 'Alimentación', max: <?php echo $sumaTotal; ?> },
-                                    { name: 'Ocio', max: <?php echo $sumaTotal; ?> },
+                          legend: {
+                            data: ['Gastos', 'Presupuesto']
+                          },
+                          radar: {
+                            indicator: [
+                              { name: 'Transporte', max: <? php echo $sumaTotal; ?> },
+                                    { name: 'Alimentación', max: <? php echo $sumaTotal; ?> },
+                        { name: 'Ocio', max: <? php echo $sumaTotal; ?> },
                                 ]
                             },
-                            series: [{
-                                name: 'Presupuesto vs Gastos',
-                                type: 'radar',
-                                data: [{
-                                    value: [<?php echo $transporteGrafico; ?>, <?php echo $alimentacionGrafico; ?>, <?php echo $ocioGrafico; ?>],
-                                    name: 'Gastos',
-                                    areaStyle: {
-                                        color: 'rgba(0, 128, 255, 0.5)'
-                                    }
+                        series: [{
+                          name: 'Presupuesto vs Gastos',
+                          type: 'radar',
+                          data: [{
+                            value: [<? php echo $transporteGrafico; ?>, <? php echo $alimentacionGrafico; ?>, <? php echo $ocioGrafico; ?>],
+                      name: 'Gastos',
+                        areaStyle: {
+                        color: 'rgba(0, 128, 255, 0.5)'
+                      }
                                 },
-                                    {
-                                        value: [<?php echo $gTransporte; ?>, <?php echo $gAlimentacion; ?>, <?php echo $gOcio; ?>],
-                                        name: 'Presupuesto',
-                                        areaStyle: {
-                                            color: 'rgba(64,255,0,0.5)'
-                                        }
-                                    }]
+                      {
+                        value: [<? php echo $gTransporte; ?>, <? php echo $gAlimentacion; ?>, <? php echo $gOcio; ?>],
+                          name: 'Presupuesto',
+                            areaStyle: {
+                          color: 'rgba(64,255,0,0.5)'
+                        }
+                      }]
                             }]
                         });
                     });
 
 
-                </script>
-            </div>
-          </div><!-- End Budget Report -->
-        </div>
-            <div class="col-lg-4">
-          <!-- Website Traffic -->
-          <div class="card">
+                    </script>
+                  </div>
+                </div><!-- End Budget Report -->
+              </div>
+              <div class="col-lg-4">
+                <!-- Website Traffic -->
+                <div class="card">
 
-            <div class="card-body pb-0">
-              <h5 class="card-title">Gráficas Gastos <span>| Semanal</span></h5>
-              <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
-              <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                  echarts.init(document.querySelector("#trafficChart")).setOption({
-                    tooltip: {
-                      trigger: 'item'
-                    },
-                    legend: {
-                      top: '5%',
-                      left: 'center'
-                    },
-                    series: [{
-                      type: 'pie',
-                      radius: ['40%', '70%'],
-                      avoidLabelOverlap: false,
-                      label: {
-                        show: false,
-                        position: 'center'
-                      },
-                      emphasis: {
-                        label: {
-                          show: true,
-                          fontSize: '18',
-                          fontWeight: 'bold'
-                        }
-                      },
-                      labelLine: {
-                        show: false
-                      },
-                      data: [{
-                          value: <?php echo ($transporteGrafico);?>,
-                          name: 'Transporte'
+                  <div class="card-body pb-0">
+                    <h5 class="card-title">Gráficas Gastos <span>| Semanal</span></h5>
+                    <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
+                    <script>
+                      document.addEventListener("DOMContentLoaded", () => {
+                        echarts.init(document.querySelector("#trafficChart")).setOption({
+                          tooltip: {
+                            trigger: 'item'
+                          },
+                          legend: {
+                            top: '5%',
+                            left: 'center'
+                          },
+                          series: [{
+                            type: 'pie',
+                            radius: ['40%', '70%'],
+                            avoidLabelOverlap: false,
+                            label: {
+                              show: false,
+                              position: 'center'
+                            },
+                            emphasis: {
+                              label: {
+                                show: true,
+                                fontSize: '18',
+                                fontWeight: 'bold'
+                              }
+                            },
+                            labelLine: {
+                              show: false
+                            },
+                            data: [{
+                              value: <? php echo($transporteGrafico);?>,
+                              name: 'Transporte'
                         },
-                        {
-                          value: <?php echo ($alimentacionGrafico);?>,
-                          name: 'Alimentación'
+                          {
+                            value: <? php echo($alimentacionGrafico);?>,
+                            name: 'Alimentación'
                         },
-                        {
-                          value:<?php echo ($ocioGrafico);?>,
+                          {
+                            value:<? php echo($ocioGrafico);?>,
                           name: 'Ocio'
                         },
 
@@ -545,16 +622,16 @@
                     }]
                   });
                 });
-              </script>
-            </div>
-          </div>
-            </div>
-            <!-- Reports -->
-            <div class="col-12">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Gastos <span>/ultimo mes</span></h5>
-                  <?php
+                    </script>
+                  </div>
+                </div>
+              </div>
+              <!-- Reports -->
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Gastos <span>/ultimo mes</span></h5>
+                    <?php
                   $sqlSeleccionarGrafica="SELECT * FROM semanasgastos WHERE idUsuario='$idUsuario'";
                   $resultado=mysqli_query($conexion, $sqlSeleccionarGrafica);
                   $array_Grafica=array();
@@ -564,70 +641,70 @@
                      }
                   }
                   ?>
-                      <div id="reportsChart"></div>
-                  <script>
-                    document.addEventListener("DOMContentLoaded", () => {
-                      new ApexCharts(document.querySelector("#reportsChart"), {
-                        series: [{
-                          name: 'Transporte',
-                          data: [<?php print_r($array_Grafica[0]['transporte']); ?>,<?php print_r($array_Grafica[1]['transporte']); ?>, <?php print_r($array_Grafica[2]['transporte']); ?>, <?php print_r($array_Grafica[3]['transporte']); ?>],
+                    <div id="reportsChart"></div>
+                    <script>
+                      document.addEventListener("DOMContentLoaded", () => {
+                        new ApexCharts(document.querySelector("#reportsChart"), {
+                          series: [{
+                            name: 'Transporte',
+                            data: [<? php print_r($array_Grafica[0]['transporte']); ?>,<? php print_r($array_Grafica[1]['transporte']); ?>, <? php print_r($array_Grafica[2]['transporte']); ?>, <? php print_r($array_Grafica[3]['transporte']); ?>],
+                      }, {
+                        name: 'Alimentacion',
+                        data: [<? php print_r($array_Grafica[0]['alimentacion']); ?>,<? php print_r($array_Grafica[1]['alimentacion']); ?>, <? php print_r($array_Grafica[2]['alimentacion']); ?>, <? php print_r($array_Grafica[3]['alimentacion']); ?>]
                         }, {
-                          name: 'Alimentacion',
-                          data: [<?php print_r($array_Grafica[0]['alimentacion']); ?>,<?php print_r($array_Grafica[1]['alimentacion']); ?>, <?php print_r($array_Grafica[2]['alimentacion']); ?>, <?php print_r($array_Grafica[3]['alimentacion']); ?>]
-                        }, {
-                          name: 'Ocio',
-                          data: [<?php print_r($array_Grafica[0]['ocio']); ?>,<?php print_r($array_Grafica[1]['ocio']); ?>, <?php print_r($array_Grafica[2]['ocio']); ?>, <?php print_r($array_Grafica[3]['ocio']); ?>]
-                        },{
-                          name: 'Colchon',
-                          data: [<?php print_r($array_Grafica[0]['colchon']); ?>,<?php print_r($array_Grafica[1]['colchon']); ?>, <?php print_r($array_Grafica[2]['colchon']); ?>, <?php print_r($array_Grafica[3]['colchon']); ?>]
-                        },],
-                        chart: {
-                          height: 350,
+                        name: 'Ocio',
+                          data: [<? php print_r($array_Grafica[0]['ocio']); ?>,<? php print_r($array_Grafica[1]['ocio']); ?>, <? php print_r($array_Grafica[2]['ocio']); ?>, <? php print_r($array_Grafica[3]['ocio']); ?>]
+                      }, {
+                        name: 'Colchon',
+                          data: [<? php print_r($array_Grafica[0]['colchon']); ?>,<? php print_r($array_Grafica[1]['colchon']); ?>, <? php print_r($array_Grafica[2]['colchon']); ?>, <? php print_r($array_Grafica[3]['colchon']); ?>]
+                      },],
+                      chart: {
+                        height: 350,
                           type: 'area',
-                          toolbar: {
-                            show: false
-                          },
+                            toolbar: {
+                          show: false
                         },
-                        markers: {
-                          size: 4
-                        },
-                        colors: ['#4154f1', '#2eca6a', '#ff771d','#ff3067'],
+                      },
+                      markers: {
+                        size: 4
+                      },
+                      colors: ['#4154f1', '#2eca6a', '#ff771d', '#ff3067'],
                         fill: {
-                          type: "gradient",
+                        type: "gradient",
                           gradient: {
-                            shadeIntensity: 1,
+                          shadeIntensity: 1,
                             opacityFrom: 0.3,
-                            opacityTo: 0.4,
-                            stops: [0, 90, 100]
-                          }
-                        },
-                        dataLabels: {
-                          enabled: false
-                        },
-                        stroke: {
-                          curve: 'smooth',
-                          width: 2
-                        },
-                        xaxis: {
-                          type: 'text',
-                          categories: ["Semana 1", "Semana 2", "Semana 3", "Semana 4"]
-                        },
-                        tooltip: {
-                          x: {
-                            format: 'dd/MM/yy HH:mm'
-                          },
+                              opacityTo: 0.4,
+                                stops: [0, 90, 100]
                         }
+                      },
+                      dataLabels: {
+                        enabled: false
+                      },
+                      stroke: {
+                        curve: 'smooth',
+                          width: 2
+                      },
+                      xaxis: {
+                        type: 'text',
+                          categories: ["Semana 1", "Semana 2", "Semana 3", "Semana 4"]
+                      },
+                      tooltip: {
+                        x: {
+                          format: 'dd/MM/yy HH:mm'
+                        },
+                      }
                       }).render();
                     });
-                  </script>
-                  <!-- End Line Chart -->
+                    </script>
+                    <!-- End Line Chart -->
+                  </div>
                 </div>
-              </div>
-            </div><!-- End Reports -->
+              </div><!-- End Reports -->
 
 
+            </div>
           </div>
-        </div>
         </div>
       </div>
       </div>
@@ -646,57 +723,58 @@
       Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
     </div>
   </footer><!-- End Footer -->
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
   <script>
-      $(document).ready(function() {
-          function actualizarPorcentaje() {
-              var presupuestoTexto = $('#presupuesto_usuario').text().replace('$', '').replace(',', '');
-              var totalGastosTexto = $('#total_gastos').text().replace('$', '').replace(',', '');
-              var presupuesto = parseFloat(presupuestoTexto);
-              var totalGastos = parseFloat(totalGastosTexto);
-              if (!isNaN(presupuesto) && !isNaN(totalGastos) && presupuesto !== 0) {
-                  var porcentaje = (totalGastos / presupuesto) * 100;
-                  $('#porcentaje').text(porcentaje.toFixed(2) + '%');
-              } else {
-                  $('#porcentaje').text('0%');
-              }
+    $(document).ready(function () {
+      function actualizarPorcentaje() {
+        var presupuestoTexto = $('#presupuesto_usuario').text().replace('$', '').replace(',', '');
+        var totalGastosTexto = $('#total_gastos').text().replace('$', '').replace(',', '');
+        var presupuesto = parseFloat(presupuestoTexto);
+        var totalGastos = parseFloat(totalGastosTexto);
+        if (!isNaN(presupuesto) && !isNaN(totalGastos) && presupuesto !== 0) {
+          var porcentaje = (totalGastos / presupuesto) * 100;
+          $('#porcentaje').text(porcentaje.toFixed(2) + '%');
+        } else {
+          $('#porcentaje').text('0%');
+        }
+      }
+      actualizarPorcentaje();
+
+      function actualizarPorcentajeA() {
+        var ahorroTotalTexto = $('#ahorroTotal').text().replace('$', '').replace(',', '');
+        var metaTexto = $('#meta').text().replace('$', '').replace(',', '');
+        var ahorroTotal = parseFloat(ahorroTotalTexto);
+        var meta = parseFloat(metaTexto);
+        if (!isNaN(ahorroTotal) && !isNaN(meta) && meta !== 0) {
+          var porcentaje = (ahorroTotal / meta) * 100;
+          $('#porcentajeA').text(porcentaje.toFixed(2) + '%');
+        } else {
+          $('#porcentajeA').text('0%');
+        }
+      }
+      actualizarPorcentajeA();
+
+      $('#formDefinirMeta').submit(function (event) {
+        event.preventDefault();
+        var ahorro = $('#ahorro').val();
+
+        $.ajax({
+          url: 'estudiante.php',
+          method: 'POST',
+          data: { ahorroEstablecido: ahorro, registrarAhorro: true },
+          success: function (response) {
+            alert('Meta guardada correctamente');
+            $('#modalDefinirMeta').modal('hide');
+            location.reload();
+          },
+          error: function (xhr, status, error) {
+            alert('Error al guardar la meta');
+            console.error(xhr.responseText);
           }
-          actualizarPorcentaje();
-
-          function actualizarPorcentajeA() {
-              var ahorroTotalTexto = $('#ahorroTotal').text().replace('$', '').replace(',', '');
-              var metaTexto = $('#meta').text().replace('$', '').replace(',', '');
-              var ahorroTotal = parseFloat(ahorroTotalTexto);
-              var meta = parseFloat(metaTexto);
-              if (!isNaN(ahorroTotal) && !isNaN(meta) && meta !== 0) {
-                  var porcentaje = (ahorroTotal / meta) * 100;
-                  $('#porcentajeA').text(porcentaje.toFixed(2) + '%');
-              } else {
-                  $('#porcentajeA').text('0%');
-              }
-          }
-          actualizarPorcentajeA();
-
-          $('#formDefinirMeta').submit(function(event) {
-              event.preventDefault();
-              var ahorro = $('#ahorro').val();
-
-              $.ajax({
-                  url: 'estudiante.php',
-                  method: 'POST',
-                  data: { ahorroEstablecido: ahorro, registrarAhorro: true },
-                  success: function(response) {
-                      alert('Meta guardada correctamente');
-                      $('#modalDefinirMeta').modal('hide');
-                      location.reload();
-                  },
-                  error: function(xhr, status, error) {
-                      alert('Error al guardar la meta');
-                      console.error(xhr.responseText);
-                  }
-              });
-          });
+        });
       });
+    });
   </script>
 
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -711,4 +789,5 @@
   <script src="assets/js/main.js"></script>
   <script src="estudianteFiles/Prueba1_Ignorar.js"></script>
 </body>
+
 </html>
