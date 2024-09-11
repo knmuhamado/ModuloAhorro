@@ -11,7 +11,7 @@ def leerPresupuestosE(nombre):
                 return {"alimentacion": 0, "transporte": 0, "Entretenimiento": 0, "Meta": 0}
     except Exception as e:
         print("Error al leer el archivo de presupuestos:", e)
-        return None
+        return {"alimentacion": 0, "transporte": 0, "Entretenimiento": 0, "Meta": 0}
 
 
 #funcion para mostrar el presupuesto total

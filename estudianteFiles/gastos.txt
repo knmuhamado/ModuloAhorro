@@ -3,12 +3,12 @@
 "Alimentacion": 10,
 "Transporte": 5,
 "Entretenimiento": 20,
-"Ahorro": 20;
+"Ahorro": 20
 },
 "Ana": {
 "Alimentacion": 0,
 "Transporte": 30,
 "Entretenimiento": 10,
-"Ahorro": 50;
+"Ahorro": 50
 },
 }

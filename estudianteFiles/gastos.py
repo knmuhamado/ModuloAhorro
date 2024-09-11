@@ -9,12 +9,10 @@ def leerGastosE(nombre):
             else:
                 return {"alimentacion": 0, "transporte": 0, "Entretenimiento": 0, "Ahorro": 0}
     except Exception as e:
-        print("Error al leer el archivo de presupuestos:", e)
-        return None
+        print("Error al leer el archivo de gastos:", e)
+        return {"alimentacion": 0, "transporte": 0, "Entretenimiento": 0, "Ahorro": 0}
 
 #funcion para mostrar el total de lo gastado
 def mostrarTotalGastos(gastos):
-    if gastos is None:
-        return 0
     return sum(value for key, value in gastos.items() if key != 'Ahorro')
 
