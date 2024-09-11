@@ -1,3 +1,4 @@
+# Funciones para manejar los gastos de los estudiantes
 
 #Funciones para manejar los gastos de los estudiantes
 def leerGastosE(nombre):

@@ -1,4 +1,4 @@
-#Funciones para el manejo de presupuestos
+#Funciones para el manejo de presupuestos de los estudiantes
 
 #funcion para leer los presupuestos del txt
 def leerPresupuestosE(nombre):
