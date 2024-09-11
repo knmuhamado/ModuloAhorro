@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+import json
 from estudianteFiles.presupuestos import mostrarTotalP, leerPresupuestosE
 from estudianteFiles.gastos import leerGastosE, mostrarTotalGastos
 
@@ -76,7 +77,41 @@ def get_presupuesto():
     else:
         gastado = mostrarTotalGastos(leerGastosE(name))
         totalP = mostrarTotalP(leerPresupuestosE(name))
-        return jsonify({"presupuesto_total": totalP, "gastado": gastado})
+        return jsonify({"presupuesto_total": totalP, "gastado": gastado, "presupuestos": leerPresupuestosE(name), "gastos": leerGastosE(name)})
+
+@app.route('/editar_presupuesto', methods=['POST'])
+def editar_presupuesto():
+    data = request.get_json()
+    usuario = name
+    categoria = data.get('categoria')
+    nuevo_presupuesto = data.get('nuevoPresupuesto')
+
+    if not categoria or not nuevo_presupuesto:
+        return jsonify({"success": False, "message": "Datos incompletos"}), 400
+
+    try:
+        # Leer el archivo de presupuestos
+        with open("estudianteFiles/presupuestos.txt", "r") as archivo:
+            presupuestos = json.load(archivo)
+
+        # Verificar si el usuario existe en el archivo
+        if usuario not in presupuestos:
+            return jsonify({"success": False, "message": "Usuario no encontrado"}), 404
+
+        # Verificar si la categoría existe para ese usuario
+        if categoria not in presupuestos[usuario]:
+            return jsonify({"success": False, "message": "Categoría no encontrada"}), 404
+
+        # Actualizar el presupuesto de la categoría seleccionada para ese usuario
+        presupuestos[usuario][categoria] = float(nuevo_presupuesto)
+
+        # Guardar los cambios en el archivo
+        with open("estudianteFiles/presupuestos.txt", "w") as archivo:
+            json.dump(presupuestos, archivo)
+
+        return jsonify({"success": True})
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
 
 
 if __name__ == '__main__':

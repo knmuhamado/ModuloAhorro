@@ -1,14 +1,1 @@
-{
-    "Juan": {
-        "alimentacion": 100,
-        "transporte": 50,
-        "Entretenimiento": 75,
-        "Meta": 200
-    },
-    "Ana": {
-        "alimentacion": 60,
-        "transporte": 80,
-        "Entretenimiento": 40,
-        "Meta": 150
-    }
-}
+{"Juan": {"Alimentacion": 7.0, "Transporte": 50, "Entretenimiento": 75, "Meta": 200}, "Ana": {"Alimentacion": 60, "Transporte": 80, "Entretenimiento": 40, "Meta": 150}}
