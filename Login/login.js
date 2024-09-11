@@ -19,7 +19,9 @@ document.getElementById('form-login').addEventListener('submit', function (e) {
             // Redireccionar a la página relacionada
             setTimeout(function () {
                 if (data.perfil) {
-                    window.location.href = data.perfil;
+                    const url = data.perfil === 'Estudiante' ? '../estudiante.html' : '../hogar.html';
+                    console.log(url);
+                    window.location.href = url;
                 }
             }, 1000)
 

@@ -1,10 +1,13 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from estudianteFiles import presupuestos as mostrarTotal
+from estudianteFiles.presupuestos import mostrarTotalP, leerPresupuestosE
+from estudianteFiles.gastos import leerGastosE, mostrarTotalGastos
+
 
 app = Flask(__name__)
 CORS(app)  # Habilita CORS para todas las rutas
 
+name = None
 def verificarUsuario(nombre, contrasena):
     # Diccionario con usuarios
     usuarios = {
@@ -31,11 +34,8 @@ def verificarUsuario(nombre, contrasena):
     }
 
     for usuario in usuarios.values():
-        if usuario["nombre"] and usuario["contrasena"] == contrasena:
-            if usuario["perfil"] == "Estudiante":
-                return "../estudiante.html"
-            else:
-                return "hogar"
+        if usuario["nombre"] == nombre and usuario["contrasena"] == contrasena:
+            return usuario["perfil"]
     return False
 
 
@@ -47,16 +47,36 @@ def procesar_datos():
     contrasena = data.get('contrasena')
     resultado = verificarUsuario(nombre, contrasena)
 
-    if resultado != False:
-        return jsonify({"mensaje": "Acceso permitido", "perfil": resultado})
+    if resultado:
+        global name
+        name = nombre
+        if resultado == "Estudiante":
+            presupuesto = leerPresupuestosE(nombre)
+            gastos = leerGastosE(nombre)
+        else:
+            presupuesto = None
+            gastos = None
+        if presupuesto:
+            return jsonify({
+                "mensaje": "Acceso permitido",
+                "perfil": resultado,
+                "presupuesto": presupuesto,
+                "gastos": gastos
+            })
+        else:
+            return jsonify({"mensaje": "Acceso permitido, pero no se encontró presupuesto"})
     else:
         return jsonify({"mensaje": "Acceso denegado"})
 
 
-@app.route('/presupuesto', methods=['GET'])
+@app.route('/datos', methods=['GET'])
 def get_presupuesto():
-    total = mostrarTotal()
-    return jsonify({"presupuesto_total": total})
+    if name is None:
+        return jsonify({"mensaje": "No se ha iniciado sesión"})
+    else:
+        gastado = mostrarTotalGastos(leerGastosE(name))
+        totalP = mostrarTotalP(leerPresupuestosE(name))
+        return jsonify({"presupuesto_total": totalP, "gastado": gastado})
 
 
 if __name__ == '__main__':
