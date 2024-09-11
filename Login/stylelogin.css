@@ -1,8 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900');
-* {
-    margin: 0;
-    padding: 0;
-}
+
 body {
     background: #f0f4f3;
     font-family: 'Roboto', sans-serif;
@@ -42,9 +38,6 @@ input[type="text"] {
 #login .submit-btn {
     background: #007bff;
 }
-#register .submit-btn {
-    background: #2990ff;
-}
 #container {
     background: #ededed;
     border-radius: 10px;
@@ -70,28 +63,14 @@ input[type="text"] {
     top: -550px;
     z-index: 1;
 }
-#register {
-    background: #fff;
-    float: right;
-    height: 100%;
-    position: relative;
-    width: 50%;
-    text-align: center;
-    top: -550px;
-    z-index: 1;
-}
-#login h1,
-#register h1 {
+#login h1 {
     padding: 20% 0 25px;
 }
 #login h1 {
     color: #007bff;
 }
-#register h1 {
-    color: #2990ff;
-}
-#login p,
-#register p {
+
+#login p{
     font-size: 12px;
     font-weight: 300;
     letter-spacing: 0.3px;
@@ -107,8 +86,7 @@ input[type="text"] {
     text-decoration: none;
 }
 #cover {
-    background:#007bff;
-    color: #fff;
+    background: url("../assets/img/ahorro.jpg");
     height: 550px;
     margin: 0 0 0 50%;
     position: relative;
@@ -116,17 +94,6 @@ input[type="text"] {
     transition: margin 0.7s, background 0.5s, display 1s, width 1s;
     width: 50%;
     z-index: 5;
-}
-#cover h1 {
-    padding-top: 38%;
-}
-#cover p {
-    font-weight: 300;
-    line-height: 22px;
-    padding: 30px 45px 40px;
-}
-.sign-in {
-    display: none;
 }
 .sub {
     position: relative;

@@ -10,36 +10,28 @@
     <title>SmartSpends</title>
     <link rel="stylesheet" href="stylelogin.css">
 
-    <link href="assets/img/favicon.png" rel="icon">
-    <link href="assets/img/favicon.png" rel="favicon">
+    <link href="../assets/img/favicon.png" rel="icon">
+    <link href="../assets/img/favicon.png" rel="favicon">
 </head>
 
 <body>
-    <div id="container">
-        <!-- Cover Box -->
-        <div id="cover">
-            <!-- Sign Up Section -->
-            <h1 class="sign-up">¿Estas listo para ahorrar?</h1>
-            <p class="sign-up">Si no tienes una cuenta ven <br> y registrate aqui con nosotros</p>
-            <a class="button sign-up" href="#cover">Registrate</a>
-            <!-- Sign In Section -->
-            <h1 class="sign-in">¡Bienvenido de vuelta!</h1>
-            <p class="sign-in">Si ya tienes una cuenta porfavor<br> ingresa aqui</p>
-            <br>
-            <a class="button sub sign-in" href="#">Ingresar</a>
+        <div id="container">
+            <!-- Cover Box -->
+            <div id="cover">
+            </div>
+
+            <div id="login">
+                <h1>Ingresar</h1>
+                <p id="mensaje"></p> <!-- Aquí se muestra el mesaje que responde al ingresar-->
+                <form id="form-login">
+                    <input type="text" placeholder="Usuario" name="nombre" id="nombre"><br>
+                    <input type="password" placeholder="Password" name="contrasena" id="contrasena"><br>
+                    <input class="submit-btn" type="submit" value="Ingresar">
+                </form>
+            </div>
+            <script src="login.js"></script>
 
         </div>
-
-        <div id="login">
-            <h1>Ingresar</h1>
-            <p id="mensaje"></p> <!-- Aquí se mostrará el mensaje de respuesta -->
-            <form id="form-login">
-                <input type="text" placeholder="Usuario" name="nombre" id="nombre"><br>
-                <input type="password" placeholder="Password" name="contrasena" id="contrasena"><br>
-                <input class="submit-btn" type="submit" value="Ingresar">
-            </form>
-        </div>
-        <script src="login.js"></script>
 </body>
 
 </html>

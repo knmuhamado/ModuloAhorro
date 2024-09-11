@@ -1,4 +1,0 @@
-Maria,1234,estudiante
-Samuel,4321,estudiante
-Eliza,1423,hogar
-Manuel,2314,hogar 
