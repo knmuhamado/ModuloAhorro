@@ -72,16 +72,17 @@ document.getElementById('formEditarGasto').addEventListener('submit', function (
             nuevoGasto: nuevoGasto
         })
     })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('Gasto actualizado correctamente');
-                location.reload();
-            } else {
-                alert('Error al actualizar el presupuesto');
-            }
-        })
-        .catch(error => console.error('Error:', error));
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        if (data.success) {
+            alert('Gasto actualizado correctamente');
+            location.reload();
+        } else {
+            alert('Error al actualizar el gasto');
+        }
+    })
+    .catch(error => console.error('Error:', error));
 });
 
 

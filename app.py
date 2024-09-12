@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import json
-from estudianteFiles.presupuestos import mostrarTotalP, leerPresupuestosE
+from estudianteFiles.presupuestos import mostrarTotalP, leerPresupuestosE, editarPresupuestoE
 from estudianteFiles.gastos import leerGastosE, mostrarTotalGastos
 
 
@@ -90,28 +90,14 @@ def editar_presupuesto():
         return jsonify({"success": False, "message": "Datos incompletos"}), 400
 
     try:
-        # Leer el archivo de presupuestos
-        with open("estudianteFiles/presupuestos.txt", "r") as archivo:
-            presupuestos = json.load(archivo)
-
-        # Verificar si el usuario existe en el archivo
-        if usuario not in presupuestos:
-            return jsonify({"success": False, "message": "Usuario no encontrado"}), 404
-
-        # Verificar si la categoría existe para ese usuario
-        if categoria not in presupuestos[usuario]:
-            return jsonify({"success": False, "message": "Categoría no encontrada"}), 404
-
-        # Actualizar el presupuesto de la categoría seleccionada para ese usuario
-        presupuestos[usuario][categoria] = float(nuevo_presupuesto)
-
-        # Guardar los cambios en el archivo
-        with open("estudianteFiles/presupuestos.txt", "w") as archivo:
-            json.dump(presupuestos, archivo)
-
-        return jsonify({"success": True})
+        exito, mensaje = editarPresupuestoE(usuario, categoria, nuevo_presupuesto)
+        if exito:
+            return jsonify({"success": True})
+        else:
+            return jsonify({"success": False, "message": mensaje}), 500
     except Exception as e:
         return jsonify({"success": False, "message": str(e)}), 500
+
 
 
 @app.route('/editar_gasto', methods=['POST'])
@@ -125,7 +111,7 @@ def editar_gasto():
         return jsonify({"success": False, "message": "Datos incompletos"}), 400
 
     try:
-        # Leer el archivo de presupuestos
+        # Leer el archivo de gastos
         with open("estudianteFiles/gastos.txt", "r") as archivo:
             gastos = json.load(archivo)
 
@@ -137,17 +123,16 @@ def editar_gasto():
         if categoria not in gastos[usuario]:
             return jsonify({"success": False, "message": "Categoría no encontrada"}), 404
 
-        # Actualizar el presupuesto de la categoría seleccionada para ese usuario
-        gastos[usuario][categoria] = float(nuevo_gasto)
+        # Actualizar el gasto de la categoría seleccionada para ese usuario
+        gastos[usuario][categoria] = int(nuevo_gasto)
 
         # Guardar los cambios en el archivo
-        with open("estudianteFiles/presupuestos.txt", "w") as archivo:
+        with open("estudianteFiles/gastos.txt", "w") as archivo:
             json.dump(gastos, archivo)
 
         return jsonify({"success": True})
     except Exception as e:
         return jsonify({"success": False, "message": str(e)}), 500
-    
 
 
 if __name__ == '__main__':

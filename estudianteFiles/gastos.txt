@@ -1,14 +1,1 @@
-{
-"Juan": {
-"Alimentacion": 10,
-"Transporte": 5,
-"Entretenimiento": 20,
-"Ahorro": 20
-},
-"Ana": {
-"Alimentacion": 0,
-"Transporte": 30,
-"Entretenimiento": 10,
-"Ahorro": 50
-},
-}
+{"Juan": {"Alimentacion": 1, "Transporte": 1, "Entretenimiento": 75, "Ahorro": 200}, "Ana": {"Alimentacion": 60, "Transporte": 80, "Entretenimiento": 40, "Ahorro": 150}}
