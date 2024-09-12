@@ -19,3 +19,19 @@ def mostrarTotalGastos(gastos):
     gastosTotales = sum(sum(value) for key, value in gastos.items() if key != 'Ahorro')
     return gastosTotales
 
+#funcion para añadir gastos por categorias
+def añadirGastoE(usuario, categoria, nuevoGasto):
+    try:
+        with open("estudianteFiles/gastos.txt", "r") as archivo:
+            gastos = eval(archivo.read())
+        if usuario not in gastos:
+            return False, "Usuario no encontrado"
+        if len(gastos[usuario][categoria]) >= 1:
+            gastos[usuario][categoria].append(int(nuevoGasto))
+        else:
+            gastos[usuario][categoria] = [int(nuevoGasto)]
+        with open("estudianteFiles/gastos.txt", "w") as archivo:
+            archivo.write(str(gastos))
+        return True, ""
+    except Exception as e:
+        return False, str(e)
