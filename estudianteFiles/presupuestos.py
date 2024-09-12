@@ -18,6 +18,22 @@ def leerPresupuestosE(nombre):
 def mostrarTotalP(presupuesto):
     return sum(value for key, value in presupuesto.items() if key != 'Meta')
 
+#funcion para editar el presupuesto por categorias
+def editarPresupuestoE(name, categoria, nuevoPresupuesto):
+    try:
+        with open("estudianteFiles/presupuestos.txt", "r") as archivo:
+            presupuestos = eval(archivo.read())
+        if name not in presupuestos:
+            return False, "Usuario no encontrado"
+        presupuestos[name][categoria] = int(nuevoPresupuesto)
+        with open("estudianteFiles/presupuestos.txt", "w") as archivo:
+            archivo.write(str(presupuestos))
+        return True, ""
+    except Exception as e:
+        return False, str(e)
+
+
+
 
 
 
