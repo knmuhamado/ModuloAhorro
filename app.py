@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import json
 from estudianteFiles.presupuestos import mostrarTotalP, leerPresupuestosE, editarPresupuestoE
-from estudianteFiles.gastos import leerGastosE, mostrarTotalGastos, añadirGastoE
+from estudianteFiles.gastos import leerGastosE, mostrarTotalGastos, añadirGastoE, sumarAlimentacion, sumarTransporte, sumarOtros, sumarAhorro
 
 
 app = Flask(__name__)
@@ -77,7 +77,8 @@ def get_presupuesto():
     else:
         gastado = mostrarTotalGastos(leerGastosE(name))
         totalP = mostrarTotalP(leerPresupuestosE(name))
-        return jsonify({"presupuesto_total": totalP, "gastado": gastado, "presupuestos": leerPresupuestosE(name), "gastos": leerGastosE(name)})
+        gastos = {"Alimentacion": sumarAlimentacion(name), "Transporte": sumarTransporte(name), "Otros": sumarOtros(name)}
+        return jsonify({"presupuesto_total": totalP, "gastado": gastado, "presupuestos": leerPresupuestosE(name), "gastos": gastos})
 
 @app.route('/editar_presupuesto', methods=['POST'])
 def editar_presupuesto():
