@@ -35,3 +35,52 @@ def añadirGastoE(usuario, categoria, nuevoGasto):
         return True, ""
     except Exception as e:
         return False, str(e)
+
+#funcion para sumar la lista de Alimentacion
+def sumarAlimentacion(usuario):
+    try:
+        with open("estudianteFiles/gastos.txt", "r") as archivo:
+            gastos = eval(archivo.read())
+        if usuario not in gastos:
+            return False, "Usuario no encontrado"
+        suma = sum(gastos[usuario]['alimentacion'])
+        return True, suma
+    except Exception as e:
+        return False, str(e)
+
+#funcion para sumar la lista de Transporte
+def sumarTransporte(usuario):
+    try:
+        with open("estudianteFiles/gastos.txt", "r") as archivo:
+            gastos = eval(archivo.read())
+        if usuario not in gastos:
+            return False, "Usuario no encontrado"
+        suma = sum(gastos[usuario]['transporte'])
+        return True, suma
+    except Exception as e:
+        return False, str(e)
+
+#funcion para sumar la lista de Otros
+def sumarOtros(usuario):
+    try:
+        with open("estudianteFiles/gastos.txt", "r") as archivo:
+            gastos = eval(archivo.read())
+        if usuario not in gastos:
+            return False, "Usuario no encontrado"
+        suma = sum(gastos[usuario]['Otros'])
+        return True, suma
+    except Exception as e:
+        return False, str(e)
+
+#funcion para sumar la lista de Ahorro
+def sumarAhorro(usuario):
+    try:
+        with open("estudianteFiles/gastos.txt", "r") as archivo:
+            gastos = eval(archivo.read())
+        if usuario not in gastos:
+            return False, "Usuario no encontrado"
+        suma = sum(gastos[usuario]['Ahorro'])
+        return True, suma
+    except Exception as e:
+        return False, str(e)
+
