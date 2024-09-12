@@ -78,7 +78,7 @@ def get_presupuesto():
         gastado = mostrarTotalGastos(leerGastosE(name))
         totalP = mostrarTotalP(leerPresupuestosE(name))
         #sumar gastos por cada categoria
-        gastos = { "Alimentacion": sum(leerGastosE(name)["alimentacion"]), "Transporte": sum(leerGastosE(name)["transporte"]), "Otros": sum(leerGastosE(name)["Otros"]), }
+        gastos = { "Alimentacion": sum(leerGastosE(name)["Alimentacion"]), "Transporte": sum(leerGastosE(name)["Transporte"]), "Otros": sum(leerGastosE(name)["Otros"]), }
         return jsonify({"presupuesto_total": totalP, "gastado": gastado, "presupuestos": leerPresupuestosE(name), "gastos": gastos})
 
 @app.route('/editar_presupuesto', methods=['POST'])
