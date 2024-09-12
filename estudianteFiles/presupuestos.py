@@ -1,5 +1,6 @@
 #Funciones para el manejo de presupuestos de los estudiantes
 
+
 #funcion para leer los presupuestos del txt
 def leerPresupuestosE(nombre):
     #leer el archivo de presupuestos
@@ -19,6 +20,7 @@ def leerPresupuestosE(nombre):
 def mostrarTotalP(presupuesto):
     return sum(value for key, value in presupuesto.items() if key != 'Meta')
 
+
 #funcion para editar el presupuesto por categorias
 def editarPresupuestoE(name, categoria, nuevoPresupuesto):
     try:
@@ -32,7 +34,6 @@ def editarPresupuestoE(name, categoria, nuevoPresupuesto):
         return True, ""
     except Exception as e:
         return False, str(e)
-
 
 
 
