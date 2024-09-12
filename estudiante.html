@@ -225,7 +225,8 @@
             <div class="col-xxl-4 col-xl-4 col-md-4">
               <div class="card info-card sales-card">
                 <div class="filter">
-                  <a class="icon" data-bs-toggle="modal" data-bs-target="#modalEditarGastos"><i class="bi bi-plus-circle"></i></a>
+                  <a class="icon" data-bs-toggle="modal" data-bs-target="#modalEditarGastos"><i
+                      class="bi bi-plus-circle"></i></a>
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">Gastos</h5>
@@ -398,41 +399,26 @@
                     <h5 class="card-title">Pendientes</h5>
                     <div class="activity">
 
-                      <div style="height:384px;">
-                        <?php
-                $sqlGetEventos = "SELECT * FROM pendiente WHERE idUsuario='$idUsuario'";
-                $resultado=mysqli_query($conexion, $sqlGetEventos);
-                if($resultado){
-                  while($row = $resultado->fetch_array()){
-                    $nombrePendiente=$row['nombre'];
-                    $montoPendiente=$row['precio'];
-                    $fechaPendiente=$row['fecha'];
-                    $idPendiente = $row['id'];
+                      <div style="height:284px;">
 
-                ?>
                         <div class="activity-item d-flex">
                           <div class="activite-label">
-                            <?php echo($fechaPendiente); ?><br><b>
+                            <br><b>
                               <p>$
-                                <?php echo($montoPendiente); ?>
+
                               </p>
                             </b>
                           </div>
                           <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
                           <div class="activity-content flex-grow-1">
-                            <?php echo($nombrePendiente); ?>
-                            <button class="btn btn-sm btn-outline-danger btn-delete m-3"
-                              onclick="eliminarPendiente(<?php echo $idPendiente; ?>)">
+
+                            <button class="btn btn-sm btn-outline-danger btn-delete m-3" onclick="eliminarPendiente()">
                               <i class="bi bi-trash"></i>
                             </button>
                           </div>
 
                         </div><!-- End activity item-->
-                        <?php
-                   }
-                }
 
-                ?>
                         <script>
                           function eliminarPendiente(idPendiente) {
                             if (confirm('¿Estás seguro de que deseas eliminar este pendiente?')) {
@@ -505,46 +491,65 @@
                   <div class="card-body pb-0">
 
                     <h5 class="card-title">Gasto-Presupuesto <span> | Semanal</span></h5>
-                    <div id="budgetChart" style="min-height: 400px;" class="echart"></div>
+                    <table class="table table-borderless" style="font-size: 85.55%;margin-left: -3.33%;">
+                      <thead>
+                        <tr>
+                          <th scope="col">Categoria</th>
+                          <th scope="col">Presupuesto</th>
+                          <th scope="col">Gastado</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Alimentación</td>
+                          <td>
+                            <center>
+                              <spam id="alimentacion">$20</spam>
+                            </center>
+                          </td>
+                          <td>
+                            <center>
+                              <spam id="alimentacionGasto"></spam>
+                            </center>
+                          </td>
+                        </tr>
 
-                    <script>
+                        <tr>
+                          <td>Transporte</td>
+                          <td>
+                            <center>
+                              <spam id="transporte"></spam>
+                            </center>
+                          </td>
+                          <td>
+                            <center>
+                              <spam id="transporteGasto"></spam>
+                            </center>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>Otros</td>
+                          <td>
+                            <center>
+                              <spam id="otros"></spam>
+                            </center>
+                          </td>
+                          <td>
+                            <center>
+                              <spam id="ptrosGasto"></spam>
+                            </center>
+                          </td>
+                        </tr>
 
 
-                      document.addEventListener("DOMContentLoaded", () => {
-                        var budgetChart = echarts.init(document.querySelector("#budgetChart")).setOption({
-                          legend: {
-                            data: ['Gastos', 'Presupuesto']
-                          },
-                          radar: {
-                            indicator: [
-                              { name: 'Transporte', max: <? php echo $sumaTotal; ?> },
-                                    { name: 'Alimentación', max: <? php echo $sumaTotal; ?> },
-                        { name: 'Ocio', max: <? php echo $sumaTotal; ?> },
-                                ]
-                            },
-                        series: [{
-                          name: 'Presupuesto vs Gastos',
-                          type: 'radar',
-                          data: [{
-                            value: [<? php echo $transporteGrafico; ?>, <? php echo $alimentacionGrafico; ?>, <? php echo $ocioGrafico; ?>],
-                      name: 'Gastos',
-                        areaStyle: {
-                        color: 'rgba(0, 128, 255, 0.5)'
-                      }
-                                },
-                      {
-                        value: [<? php echo $gTransporte; ?>, <? php echo $gAlimentacion; ?>, <? php echo $gOcio; ?>],
-                          name: 'Presupuesto',
-                            areaStyle: {
-                          color: 'rgba(64,255,0,0.5)'
-                        }
-                      }]
-                            }]
-                        });
-                    });
+
+                      </tbody>
+                    </table>
+
+                    <div id="budgetChart" style="min-height: 140px;" class="echart"></div>
 
 
-                    </script>
                   </div>
                 </div><!-- End Budget Report -->
               </div>
@@ -553,55 +558,32 @@
                 <div class="card">
 
                   <div class="card-body pb-0">
-                    <h5 class="card-title">Gráficas Gastos <span>| Semanal</span></h5>
-                    <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
-                    <script>
-                      document.addEventListener("DOMContentLoaded", () => {
-                        echarts.init(document.querySelector("#trafficChart")).setOption({
-                          tooltip: {
-                            trigger: 'item'
-                          },
-                          legend: {
-                            top: '5%',
-                            left: 'center'
-                          },
-                          series: [{
-                            type: 'pie',
-                            radius: ['40%', '70%'],
-                            avoidLabelOverlap: false,
-                            label: {
-                              show: false,
-                              position: 'center'
-                            },
-                            emphasis: {
-                              label: {
-                                show: true,
-                                fontSize: '18',
-                                fontWeight: 'bold'
-                              }
-                            },
-                            labelLine: {
-                              show: false
-                            },
-                            data: [{
-                              value: <? php echo($transporteGrafico);?>,
-                              name: 'Transporte'
-                        },
-                          {
-                            value: <? php echo($alimentacionGrafico);?>,
-                            name: 'Alimentación'
-                        },
-                          {
-                            value:<? php echo($ocioGrafico);?>,
-                          name: 'Ocio'
-                        },
+                    <h5 class="card-title">Gastos <span>| Semanal</span></h5>
+                    <!-- List group With Icons -->
+                    <ul class="list-group">
 
 
-                      ]
-                    }]
-                  });
-                });
-                    </script>
+                      <li class="list-group-item"><i class="bi bi-controller me-1 text-success"></i>
+                        <spam id="Otros1">Otros: $30</sapm>
+                      </li>
+                      <li class="list-group-item"><i class="bi bi-droplet-half me-1 text-primary"></i>
+                        <spam id="Servicios1">Transporte:$40</spam>
+                      </li>
+
+                      <li class="list-group-item"><i class="bi bi-egg-fried me-1 text-warning"></i>
+                        <spam id="Alimentacion1">Alimentacion: $50</spam>
+                      </li>
+
+                      <li class="list-group-item"><i class="bi bi-controller me-1 text-success"></i>
+                        <spam id="Otros2">Otros: $30</sapm>
+                      </li>
+
+                      <li class="list-group-item"><i class="bi bi-droplet-half me-1 text-primary"></i>
+                        <spam id="Servicios2">Transporte:$40</spam>
+                      </li>
+
+                      <div id="trafficChart" style="min-height: 100px;" class="echart"></div>
+                    </ul><!-- End List group With Icons -->
                   </div>
                 </div>
               </div>

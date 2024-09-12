@@ -19,6 +19,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 porcentaje = (data.gastado / data.presupuesto_total) * 100;
             }
             document.getElementById('porcentaje').textContent = porcentaje.toFixed(2) + '%';
+            document.getElementById('alimentacion').textContent = "$" + data.presupuestos['Alimentacion'];
+            document.getElementById('otros').textContent = "$" + data.presupuestos['Otros'];
+            document.getElementById('transporte').textContent = "$" + data.presupuestos['Transporte'];
         })
         .catch(error => {
             console.error('Error:', error);
@@ -72,17 +75,17 @@ document.getElementById('formEditarGasto').addEventListener('submit', function (
             nuevoGasto: nuevoGasto
         })
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        if (data.success) {
-            alert('Gasto añadido correctamente');
-            location.reload();
-        } else {
-            alert('Error al añadir el gasto');
-        }
-    })
-    .catch(error => console.error('Error:', error));
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (data.success) {
+                alert('Gasto añadido correctamente');
+                location.reload();
+            } else {
+                alert('Error al añadir el gasto');
+            }
+        })
+        .catch(error => console.error('Error:', error));
 });
 
 
