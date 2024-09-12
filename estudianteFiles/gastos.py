@@ -37,13 +37,33 @@ def añadirGastoE(usuario, categoria, nuevoGasto):
         return False, str(e)
 
 
-#funcion para sumar la lista de Ahorro
-def sumarAhorro(usuario):
+#funcion para sumar ahorro
+
+def sumarAhorro(usuario, ahorro):
     try:
         with open("estudianteFiles/gastos.txt", "r") as archivo:
             gastos = eval(archivo.read())
-        suma = sum(gastos[usuario]['Ahorro'])
-        return True, suma
+        if usuario not in gastos:
+            return False, "Usuario no encontrado"
+        gastos[usuario]['Ahorro'] += int(ahorro)
+        with open("estudianteFiles/gastos.txt", "w") as archivo:
+            archivo.write(str(gastos))
+        return True, ""
+    except Exception as e:
+        return False, str(e)
+
+
+#funcion para restar ahorro
+def restarAhorro(usuario, ahorro):
+    try:
+        with open("estudianteFiles/gastos.txt", "r") as archivo:
+            gastos = eval(archivo.read())
+        if usuario not in gastos:
+            return False, "Usuario no encontrado"
+        gastos[usuario]['Ahorro'] -= int(ahorro)
+        with open("estudianteFiles/gastos.txt", "w") as archivo:
+            archivo.write(str(gastos))
+        return True, ""
     except Exception as e:
         return False, str(e)
 

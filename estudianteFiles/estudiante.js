@@ -228,3 +228,44 @@ document.getElementById('formEditarGasto').addEventListener('submit', function (
     })
     .catch(error => console.error('Error:', error));
 });
+
+    document.getElementById('formEditarAhorro').addEventListener('submit', function(event) {
+    event.preventDefault();  // Evitar que el formulario se envíe de forma tradicional
+
+    // Obtener los valores seleccionados
+    var ahorro = document.getElementById('montoAhorro').value;
+    var opcion = document.getElementById('opcionAhorro').value;
+
+    // Validar que ambos campos tengan valores
+    if (!ahorro || !opcion) {
+        alert('Por favor completa ambos campos.');
+        return;
+    }
+
+
+    // Enviar los datos al servidor usando Fetch API
+    fetch('http://127.0.0.1:5000/ahorro', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            ahorro: ahorro,
+            opcion: opcion
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Ahorro actualizado correctamente');
+            location.reload();
+        } else {
+            alert('Error al actualizar el ahorro: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error en el fetch:', error);
+        alert('Hubo un problema al conectarse con el servidor.');
+    });
+});
+

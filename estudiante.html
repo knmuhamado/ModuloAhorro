@@ -328,19 +328,8 @@
             <div class="col-xxl-4 col-xl-4 col-md-4">
               <div class="card info-card customers-card">
                 <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Actualizar</h6>
-                    </li>
-                    <li>
-                      <form action="estudiante.php" method="POST">
-                        <input type="hidden" value="<?php echo (isset($ahorroTotal) ? $ahorroTotal : 0); ?>"
-                          name="ahorroEstablecido">
-                        <input type="submit" class="dropdown-item" href="#" name="retirar" value="Retirar">
-                      </form>
-                    </li>
-                  </ul>
+                  <a class="icon" data-bs-toggle="modal" data-bs-target="#modalEditarAhorro"><i
+                      class="bi bi-plus-circle"></i></a>
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">Ahorro<span> | meta: <span id="meta"></span></span></h5>
@@ -372,6 +361,36 @@
                                   <input class="form-control" id="ahorro" name="ahorroEstablecido" type="number" required>
                                 </div>
                                 <button type="submit" class="btn btn-success">Registrar</button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="modal fade" id="modalEditarAhorro" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Editar Ahorro</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <form id="formEditarAhorro">
+                                <!-- Selección de opción: Añadir o Retirar -->
+                                <div class="mb-3">
+                                  <label for="opcionAhorro">Selecciona la acción:</label>
+                                  <select class="form-select" id="opcionAhorro" name="opcion" required>
+                                    <option value="" disabled selected>Elige una opción</option>
+                                    <option value="Añadir">Añadir Ahorro</option>
+                                    <option value="retirar">Retirar Ahorro</option>
+                                  </select>
+                                </div>
+                                <!-- Ingreso del monto de ahorro -->
+                                <div class="mb-3">
+                                  <label for="montoAhorro">Cantidad de Ahorro:</label>
+                                  <input type="number" class="form-control" id="montoAhorro" name="ahorro" required>
+                                </div>
+                                <button type="submit" class="btn btn-success">Guardar Cambios</button>
                               </form>
                             </div>
                           </div>

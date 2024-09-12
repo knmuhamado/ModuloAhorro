@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from estudianteFiles.presupuestos import mostrarTotalP, leerPresupuestosE, editarPresupuestoE, definirMeta
-from estudianteFiles.gastos import leerGastosE, mostrarTotalGastos, añadirGastoE
+from estudianteFiles.gastos import leerGastosE, mostrarTotalGastos, añadirGastoE, sumarAhorro, restarAhorro
 
 
 app = Flask(__name__)
@@ -77,7 +77,7 @@ def get_presupuesto():
         gastado = mostrarTotalGastos(leerGastosE(name))
         totalP = mostrarTotalP(leerPresupuestosE(name))
         #sumar gastos por cada categoria
-        gastosS= { "Alimentacion": sum(leerGastosE(name)["Alimentacion"]), "Transporte": sum(leerGastosE(name)["Transporte"]), "Otros": sum(leerGastosE(name)["Otros"]), "Ahorro": sum(leerGastosE(name)["Ahorro"])}
+        gastosS= { "Alimentacion": sum(leerGastosE(name)["Alimentacion"]), "Transporte": sum(leerGastosE(name)["Transporte"]), "Otros": sum(leerGastosE(name)["Otros"]), "Ahorro": leerGastosE(name)["Ahorro"]}
         return jsonify({"presupuesto_total": totalP, "gastado": gastado, "presupuestos": leerPresupuestosE(name), "gastosS": gastosS, "gastos": leerGastosE(name), "Meta": leerPresupuestosE(name)["Meta"]})
 
 @app.route('/editar_presupuesto', methods=['POST'])
@@ -137,6 +137,37 @@ def definir_meta():
             return jsonify({"success": False, "message": mensaje}), 404
     except Exception as e:
         return jsonify({"success": False, "message": str(e)}), 500
+
+
+@app.route('/ahorro', methods=['POST'])
+def editarAhorro():
+    data = request.get_json()
+    usuario = name
+    ahorro = data.get('ahorro')
+    opcion = data.get('opcion')
+
+    if not ahorro or not opcion:
+        return jsonify({"success": False, "message": "Datos incompletos"}), 400
+
+    if opcion == "retirar":
+        try:
+            exito, mensaje = restarAhorro(usuario, ahorro)
+            if exito:
+                return jsonify({"success": True})
+            else:
+                return jsonify({"success": False, "message": mensaje}), 404
+        except Exception as e:
+            return jsonify({"success": False, "message": str(e)}), 500
+    elif opcion == "Añadir":
+        try:
+            exito, mensaje = sumarAhorro(usuario, ahorro)
+            if exito:
+                return jsonify({"success": True})
+            else:
+                return jsonify({"success": False, "message": mensaje}), 404
+        except Exception as e:
+            return jsonify({"success": False, "message": str(e)}), 500
+
 
 if __name__ == '__main__':
     app.run(debug=True)
