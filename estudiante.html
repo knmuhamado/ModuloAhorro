@@ -343,16 +343,13 @@
                   </ul>
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title">Ahorro<span> | meta: <span id="meta">
-                        <?php echo (isset($meta) ? $meta : 0); ?>
-                      </span></span></h5>
+                  <h5 class="card-title">Ahorro<span> | meta: <span id="meta"></span></span></h5>
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bi bi-piggy-bank-fill"></i>
                     </div>
                     <div class="ps-3">
                       <h6 id="ahorroTotal">$
-                        <?php echo ($ahorroTotal); ?>
                       </h6>
                       <span id="porcentajeA" class="text-success small pt-1 fw-bold"></span><span
                         class="text-muted small pt-2 ps-1">de la meta</span>
@@ -369,14 +366,12 @@
                                 aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                              <!-- Formulario para poner meta de ahorro-->
-                              <form action="estudiante.php" method="POST" id="formDefinirMeta">
+                              <form id="formDefinirMeta">
                                 <div class="mb-3">
                                   <label for="ahorro">Nueva Meta:</label>
-                                  <input class="form-control" id="ahorro" name="ahorroEstablecido" type="number"
-                                    required>
+                                  <input class="form-control" id="ahorro" name="ahorroEstablecido" type="number" required>
                                 </div>
-                                <button type="submit" name="registrarAhorro" class="btn btn-success">Registrar</button>
+                                <button type="submit" class="btn btn-success">Registrar</button>
                               </form>
                             </div>
                           </div>
@@ -490,7 +485,7 @@
                 <div class="card">
                   <div class="card-body pb-0">
 
-                    <h5 class="card-title">Gasto-Presupuesto <span> | Semanal</span></h5>
+                    <h5 class="card-title">Gasto-Presupuesto</h5>
                     <table class="table table-borderless" style="font-size: 85.55%;margin-left: -3.33%;">
                       <thead>
                         <tr>
@@ -558,13 +553,13 @@
                 <div class="card">
 
                   <div class="card-body pb-0">
-                    <h5 class="card-title">Gastos <span>| Semanal</span></h5>
+                    <h5 class="card-title">Ultimos Gastos</h5>
                     <!-- List group With Icons -->
                     <ul class="list-group">
 
 
                       <li class="list-group-item" id="divOtro1"><i class="bi bi-controller me-1 text-danger"></i>
-                        <spam id="Otros1">Otros: $30</sapm>
+                        <spam id="Otros1">Otros: $30</spam>
                       </li>
                       <li class="list-group-item" id="divTransporte1"><i class="bi bi-bus-front me-1 text-success"></i>
                         <spam id="Transporte1">Transporte:$40</spam>
@@ -576,7 +571,7 @@
                       </li>
 
                       <li class="list-group-item" id="divOtro2"><i class="bi bi-controller me-1 text-danger"></i>
-                        <spam id="Otros2">Otros: $30</sapm>
+                        <spam id="Otros2">Otros: $30</spam>
                       </li>
 
                       <li class="list-group-item" id="divTransporte2"><i class="bi bi-bus-front me-1 text-success"></i>
@@ -615,30 +610,6 @@
   </main><!-- End #main -->
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>
-  <script>
-
-
-    $('#formDefinirMeta').submit(function (event) {
-      event.preventDefault();
-      var ahorro = $('#ahorro').val();
-
-      $.ajax({
-        url: 'estudiante.php',
-        method: 'POST',
-        data: { ahorroEstablecido: ahorro, registrarAhorro: true },
-        success: function (response) {
-          alert('Meta guardada correctamente');
-          $('#modalDefinirMeta').modal('hide');
-          location.reload();
-        },
-        error: function (xhr, status, error) {
-          alert('Error al guardar la meta');
-          console.error(xhr.responseText);
-        }
-      });
-    });
-    ;
-  </script>
 
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -13,13 +13,28 @@ document.addEventListener("DOMContentLoaded", function () {
             // Actualizar el total de gastos
             document.getElementById('total_gastos').textContent = `$${data.gastado}`;
 
+            // Actualizar Meta
+            document.getElementById('meta').textContent = `$${data.Meta}`;
+
+            // Actualizar ahorro
+            document.getElementById('ahorroTotal').textContent = `$${data.gastosS['Ahorro']}`;
+
             // Calcular y mostrar el porcentaje de gastos sobre el presupuesto
             var porcentaje = 0;
             if (data.presupuesto_total > 0) {
                 porcentaje = (data.gastado / data.presupuesto_total) * 100;
             }
+
             document.getElementById('porcentaje').textContent = porcentaje.toFixed(2) + '%';
 
+            // calcular y mostrar el porcentaje de ahorro sobre la meta
+
+            var porcentajeA = 0;
+            if (data.Meta > 0) {
+                porcentajeA = (data.gastosS['Ahorro'] / data.Meta) * 100;
+            }
+
+            document.getElementById('porcentajeA').textContent = porcentajeA.toFixed(2) + '%';
             document.getElementById('alimentacion').textContent = data.presupuestos['Alimentacion'];
             document.getElementById('otros').textContent = data.presupuestos['Otros'];
             document.getElementById('transporte').textContent = data.presupuestos['Transporte'];
@@ -33,48 +48,41 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById('divOtro2').style.display = "block";
                 document.getElementById('Otros1').textContent = "Otros: $" + data.gastos['Otros'][data.gastos['Otros'].length - 1];
                 document.getElementById('Otros2').textContent = "Otros: $" + data.gastos['Otros'][data.gastos['Otros'].length - 2];
-            }
-            else if (data.gastos['Otros'].length == 1) {
+            } else if (data.gastos['Otros'].length == 1) {
                 document.getElementById('divOtro1').style.display = "block";
                 document.getElementById('Otros1').textContent = "Otros: $" + data.gastos['Otros'][data.gastos['Otros'].length - 1];
                 document.getElementById('divOtro2').style.display = "none";
-            }
-            else {
+            } else {
                 document.getElementById('divOtro1').style.display = "none";
                 document.getElementById('divOtro2').style.display = "none";
             }
 
-
-            //Mostrar gastos Alimentacion
             if (data.gastos['Alimentacion'].length >= 2) {
                 document.getElementById('divAlimentacion1').style.display = "block";
                 document.getElementById('divAlimentacion2').style.display = "block";
                 document.getElementById('Alimentacion1').textContent = "Alimentacion: $" + data.gastos['Alimentacion'][data.gastos['Alimentacion'].length - 1];
                 document.getElementById('Alimentacion2').textContent = "Alimentacion: $" + data.gastos['Alimentacion'][data.gastos['Alimentacion'].length - 2];
-            }
-            else if (data.gastos['Alimientacion'].length == 1) {
+            } else if (data.gastos['Alimentacion'].length == 1) {
                 document.getElementById('divAlimentacion1').style.display = "block";
                 document.getElementById('Alimentacion1').textContent = "Alimentacion: $" + data.gastos['Alimentacion'][data.gastos['Alimentacion'].length - 1];
                 document.getElementById('divAlimentacion2').style.display = "none";
-            }
-            else {
+            } else {
                 document.getElementById('divAlimentacion1').style.display = "none";
                 document.getElementById('divAlimentacion2').style.display = "none";
             }
 
-            //Mostras gastos Transporte
+
+            //Mostrar gastos Transporte
             if (data.gastos['Transporte'].length >= 2) {
                 document.getElementById('divTransporte1').style.display = "block";
                 document.getElementById('divTransporte2').style.display = "block";
                 document.getElementById('Transporte1').textContent = "Transporte: $" + data.gastos['Transporte'][data.gastos['Transporte'].length - 1];
                 document.getElementById('Transporte2').textContent = "Transporte: $" + data.gastos['Transporte'][data.gastos['Transporte'].length - 2];
-            }
-            else if (data.gastos['Alimientacion'].length == 1) {
+            } else if (data.gastos['Transporte'].length == 1) {
                 document.getElementById('divTransporte1').style.display = "block";
                 document.getElementById('Transporte1').textContent = "Transporte: $" + data.gastos['Transporte'][data.gastos['Transporte'].length - 1];
                 document.getElementById('divTransporte2').style.display = "none";
-            }
-            else {
+            } else {
                 document.getElementById('divTransporte1').style.display = "none";
                 document.getElementById('divTransporte2').style.display = "none";
             }
@@ -194,4 +202,29 @@ document.getElementById('formEditarGasto').addEventListener('submit', function (
         .catch(error => console.error('Error:', error));
 });
 
+    document.getElementById('formDefinirMeta').addEventListener('submit', function (event) {
+    event.preventDefault();
 
+    var nuevaMeta = document.getElementById('ahorro').value;
+
+    // Enviar los datos al servidor
+    fetch('http://127.0.0.1:5000/definir_meta', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            meta: nuevaMeta
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Meta de ahorro actualizada correctamente');
+            location.reload();
+        } else {
+            alert('Error al actualizar la meta: ' + data.message);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});

@@ -36,6 +36,17 @@ def editarPresupuestoE(name, categoria, nuevoPresupuesto):
         return False, str(e)
 
 
-
-
+#funcion para definir la meta de ahorro
+def definirMeta(name, nuevaMeta):
+    try:
+        with open("estudianteFiles/presupuestos.txt", "r") as archivo:
+            presupuestos = eval(archivo.read())
+        if name not in presupuestos:
+            return False, "Usuario no encontrado"
+        presupuestos[name]['Meta'] = int(nuevaMeta)
+        with open("estudianteFiles/presupuestos.txt", "w") as archivo:
+            archivo.write(str(presupuestos))
+        return True, ""
+    except Exception as e:
+        return False, str(e)
 

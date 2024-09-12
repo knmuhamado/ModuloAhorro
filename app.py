@@ -1,8 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-import json
-from estudianteFiles.presupuestos import mostrarTotalP, leerPresupuestosE, editarPresupuestoE
-from estudianteFiles.gastos import leerGastosE, mostrarTotalGastos, añadirGastoE, sumarAhorro
+from estudianteFiles.presupuestos import mostrarTotalP, leerPresupuestosE, editarPresupuestoE, definirMeta
+from estudianteFiles.gastos import leerGastosE, mostrarTotalGastos, añadirGastoE
 
 
 app = Flask(__name__)
@@ -78,8 +77,8 @@ def get_presupuesto():
         gastado = mostrarTotalGastos(leerGastosE(name))
         totalP = mostrarTotalP(leerPresupuestosE(name))
         #sumar gastos por cada categoria
-        gastosS= { "Alimentacion": sum(leerGastosE(name)["Alimentacion"]), "Transporte": sum(leerGastosE(name)["Transporte"]), "Otros": sum(leerGastosE(name)["Otros"]), }
-        return jsonify({"presupuesto_total": totalP, "gastado": gastado, "presupuestos": leerPresupuestosE(name), "gastosS": gastosS, "gastos": leerGastosE(name)})
+        gastosS= { "Alimentacion": sum(leerGastosE(name)["Alimentacion"]), "Transporte": sum(leerGastosE(name)["Transporte"]), "Otros": sum(leerGastosE(name)["Otros"]), "Ahorro": sum(leerGastosE(name)["Ahorro"])}
+        return jsonify({"presupuesto_total": totalP, "gastado": gastado, "presupuestos": leerPresupuestosE(name), "gastosS": gastosS, "gastos": leerGastosE(name), "Meta": leerPresupuestosE(name)["Meta"]})
 
 @app.route('/editar_presupuesto', methods=['POST'])
 def editar_presupuesto():
@@ -120,6 +119,24 @@ def editar_gasto():
     except Exception as e:
         return jsonify({"success": False, "message": str(e)}), 500
 
+
+@app.route('/definir_meta', methods=['POST'])
+def definir_meta():
+    data = request.get_json()
+    usuario = name
+    nueva_meta = data.get('meta')
+
+    if not nueva_meta:
+        return jsonify({"success": False, "message": "Meta no proporcionada"}), 400
+
+    try:
+        exito, mensaje = definirMeta(usuario, nueva_meta)
+        if exito:
+            return jsonify({"success": True})
+        else:
+            return jsonify({"success": False, "message": mensaje}), 404
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
