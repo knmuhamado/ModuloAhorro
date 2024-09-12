@@ -2,6 +2,7 @@
 
 #funcion para leer los presupuestos del txt
 def leerPresupuestosE(nombre):
+    #leer el archivo de presupuestos
     try:
         with open("estudianteFiles/presupuestos.txt", "r") as archivo:
             presupuestos = eval(archivo.read())
