@@ -190,7 +190,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed">
           <i class="bi bi-controller"></i>
-          <span>Entretenimiento</span>
+          <span>Otros</span>
         </a>
       </li><!-- End Register Page Nav -->
 
@@ -256,7 +256,7 @@
                                     <option value="" disabled selected>Elige una categoría</option>
                                     <option value="Alimentacion">Alimentación</option>
                                     <option value="Transporte">Transporte</option>
-                                    <option value="Entretenimiento">Otros</option>
+                                    <option value="Otros">Otros</option>
                                   </select>
                                 </div>
                                 <div class="mb-3">
@@ -504,12 +504,12 @@
                           <td>Alimentación</td>
                           <td>
                             <center>
-                              <spam id="alimentacion">$20</spam>
+                              $<spam id="alimentacion"></spam>
                             </center>
                           </td>
                           <td>
                             <center>
-                              <spam id="alimentacionGasto"></spam>
+                              $<spam id="alimentacionGasto"></spam>
                             </center>
                           </td>
                         </tr>
@@ -518,12 +518,12 @@
                           <td>Transporte</td>
                           <td>
                             <center>
-                              <spam id="transporte"></spam>
+                              $<spam id="transporte"></spam>
                             </center>
                           </td>
                           <td>
                             <center>
-                              <spam id="transporteGasto"></spam>
+                              $<spam id="transporteGasto"></spam>
                             </center>
                           </td>
                         </tr>
@@ -532,12 +532,12 @@
                           <td>Otros</td>
                           <td>
                             <center>
-                              <spam id="otros"></spam>
+                              $<spam id="otros"></spam>
                             </center>
                           </td>
                           <td>
                             <center>
-                              <spam id="otrosGasto"></spam>
+                              $<spam id="otrosGasto"></spam>
                             </center>
                           </td>
                         </tr>
@@ -563,26 +563,32 @@
                     <ul class="list-group">
 
 
-                      <li class="list-group-item"><i class="bi bi-controller me-1 text-success"></i>
+                      <li class="list-group-item" id="divOtro1"><i class="bi bi-controller me-1 text-danger"></i>
                         <spam id="Otros1">Otros: $30</sapm>
                       </li>
-                      <li class="list-group-item"><i class="bi bi-droplet-half me-1 text-primary"></i>
-                        <spam id="Servicios1">Transporte:$40</spam>
+                      <li class="list-group-item" id="divTransporte1"><i class="bi bi-bus-front me-1 text-success"></i>
+                        <spam id="Transporte1">Transporte:$40</spam>
                       </li>
 
-                      <li class="list-group-item"><i class="bi bi-egg-fried me-1 text-warning"></i>
-                        <spam id="Alimentacion1">Alimentacion: $50</spam>
+                      <li class="list-group-item" id="divAlimentacion1"><i
+                          class="bi bi-egg-fried me-1 text-warning"></i>
+                        <spam id="Alimentacion1"></spam>
                       </li>
 
-                      <li class="list-group-item"><i class="bi bi-controller me-1 text-success"></i>
+                      <li class="list-group-item" id="divOtro2"><i class="bi bi-controller me-1 text-danger"></i>
                         <spam id="Otros2">Otros: $30</sapm>
                       </li>
 
-                      <li class="list-group-item"><i class="bi bi-droplet-half me-1 text-primary"></i>
-                        <spam id="Servicios2">Transporte:$40</spam>
+                      <li class="list-group-item" id="divTransporte2"><i class="bi bi-bus-front me-1 text-success"></i>
+                        <spam id="Transporte2">Transporte:$40</spam>
                       </li>
 
-                      <div id="trafficChart" style="min-height: 100px;" class="echart"></div>
+                      <li class="list-group-item" id="divAlimentacion2"><i
+                          class="bi bi-egg-fried me-1 text-warning"></i>
+                        <spam id="Alimentacion2"></spam>
+                      </li>
+
+                      <div id="trafficChart" style="min-height: 51px;" class="echart"></div>
                     </ul><!-- End List group With Icons -->
                   </div>
                 </div>
@@ -592,72 +598,8 @@
                 <div class="card">
                   <div class="card-body">
                     <h5 class="card-title">Gastos <span>/ultimo mes</span></h5>
-                    <?php
-                  $sqlSeleccionarGrafica="SELECT * FROM semanasgastos WHERE idUsuario='$idUsuario'";
-                  $resultado=mysqli_query($conexion, $sqlSeleccionarGrafica);
-                  $array_Grafica=array();
-                  if ($resultado){
-                    while($row = $resultado->fetch_array()){
-                      array_push($array_Grafica, $row);
-                     }
-                  }
-                  ?>
                     <div id="reportsChart"></div>
-                    <script>
-                      document.addEventListener("DOMContentLoaded", () => {
-                        new ApexCharts(document.querySelector("#reportsChart"), {
-                          series: [{
-                            name: 'Transporte',
-                            data: [<? php print_r($array_Grafica[0]['transporte']); ?>,<? php print_r($array_Grafica[1]['transporte']); ?>, <? php print_r($array_Grafica[2]['transporte']); ?>, <? php print_r($array_Grafica[3]['transporte']); ?>],
-                      }, {
-                        name: 'Alimentacion',
-                        data: [<? php print_r($array_Grafica[0]['alimentacion']); ?>,<? php print_r($array_Grafica[1]['alimentacion']); ?>, <? php print_r($array_Grafica[2]['alimentacion']); ?>, <? php print_r($array_Grafica[3]['alimentacion']); ?>]
-                        }, {
-                        name: 'Ocio',
-                          data: [<? php print_r($array_Grafica[0]['ocio']); ?>,<? php print_r($array_Grafica[1]['ocio']); ?>, <? php print_r($array_Grafica[2]['ocio']); ?>, <? php print_r($array_Grafica[3]['ocio']); ?>]
-                      }, {
-                        name: 'Colchon',
-                          data: [<? php print_r($array_Grafica[0]['colchon']); ?>,<? php print_r($array_Grafica[1]['colchon']); ?>, <? php print_r($array_Grafica[2]['colchon']); ?>, <? php print_r($array_Grafica[3]['colchon']); ?>]
-                      },],
-                      chart: {
-                        height: 350,
-                          type: 'area',
-                            toolbar: {
-                          show: false
-                        },
-                      },
-                      markers: {
-                        size: 4
-                      },
-                      colors: ['#4154f1', '#2eca6a', '#ff771d', '#ff3067'],
-                        fill: {
-                        type: "gradient",
-                          gradient: {
-                          shadeIntensity: 1,
-                            opacityFrom: 0.3,
-                              opacityTo: 0.4,
-                                stops: [0, 90, 100]
-                        }
-                      },
-                      dataLabels: {
-                        enabled: false
-                      },
-                      stroke: {
-                        curve: 'smooth',
-                          width: 2
-                      },
-                      xaxis: {
-                        type: 'text',
-                          categories: ["Semana 1", "Semana 2", "Semana 3", "Semana 4"]
-                      },
-                      tooltip: {
-                        x: {
-                          format: 'dd/MM/yy HH:mm'
-                        },
-                      }
-                      }).render();
-                    });
-                    </script>
+
                     <!-- End Line Chart -->
                   </div>
                 </div>
@@ -674,55 +616,28 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>
   <script>
-    $(document).ready(function () {
-      function actualizarPorcentaje() {
-        var presupuestoTexto = $('#presupuesto_usuario').text().replace('$', '').replace(',', '');
-        var totalGastosTexto = $('#total_gastos').text().replace('$', '').replace(',', '');
-        var presupuesto = parseFloat(presupuestoTexto);
-        var totalGastos = parseFloat(totalGastosTexto);
-        if (!isNaN(presupuesto) && !isNaN(totalGastos) && presupuesto !== 0) {
-          var porcentaje = (totalGastos / presupuesto) * 100;
-          $('#porcentaje').text(porcentaje.toFixed(2) + '%');
-        } else {
-          $('#porcentaje').text('0%');
+
+
+    $('#formDefinirMeta').submit(function (event) {
+      event.preventDefault();
+      var ahorro = $('#ahorro').val();
+
+      $.ajax({
+        url: 'estudiante.php',
+        method: 'POST',
+        data: { ahorroEstablecido: ahorro, registrarAhorro: true },
+        success: function (response) {
+          alert('Meta guardada correctamente');
+          $('#modalDefinirMeta').modal('hide');
+          location.reload();
+        },
+        error: function (xhr, status, error) {
+          alert('Error al guardar la meta');
+          console.error(xhr.responseText);
         }
-      }
-      actualizarPorcentaje();
-
-      function actualizarPorcentajeA() {
-        var ahorroTotalTexto = $('#ahorroTotal').text().replace('$', '').replace(',', '');
-        var metaTexto = $('#meta').text().replace('$', '').replace(',', '');
-        var ahorroTotal = parseFloat(ahorroTotalTexto);
-        var meta = parseFloat(metaTexto);
-        if (!isNaN(ahorroTotal) && !isNaN(meta) && meta !== 0) {
-          var porcentaje = (ahorroTotal / meta) * 100;
-          $('#porcentajeA').text(porcentaje.toFixed(2) + '%');
-        } else {
-          $('#porcentajeA').text('0%');
-        }
-      }
-      actualizarPorcentajeA();
-
-      $('#formDefinirMeta').submit(function (event) {
-        event.preventDefault();
-        var ahorro = $('#ahorro').val();
-
-        $.ajax({
-          url: 'estudiante.php',
-          method: 'POST',
-          data: { ahorroEstablecido: ahorro, registrarAhorro: true },
-          success: function (response) {
-            alert('Meta guardada correctamente');
-            $('#modalDefinirMeta').modal('hide');
-            location.reload();
-          },
-          error: function (xhr, status, error) {
-            alert('Error al guardar la meta');
-            console.error(xhr.responseText);
-          }
-        });
       });
     });
+    ;
   </script>
 
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>

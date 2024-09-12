@@ -728,16 +728,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title">Gastos <span>/ultimo mes</span></h5>
-                                        <?php
-                  $sqlSeleccionarGrafica="SELECT * FROM semanasgastos WHERE idUsuario='$idUsuario'";
-                  $resultado=mysqli_query($conexion, $sqlSeleccionarGrafica);
-                  $array_Grafica=array();
-                  if ($resultado){
-                    while($row = $resultado->fetch_array()){
-                      array_push($array_Grafica, $row);
-                     }
-                  }
-                  ?>
+
                                         <div id="reportsChart"></div>
                                         <script>
                                             document.addEventListener("DOMContentLoaded", () => {
