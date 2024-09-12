@@ -19,9 +19,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 porcentaje = (data.gastado / data.presupuesto_total) * 100;
             }
             document.getElementById('porcentaje').textContent = porcentaje.toFixed(2) + '%';
+
             document.getElementById('alimentacion').textContent = "$" + data.presupuestos['Alimentacion'];
             document.getElementById('otros').textContent = "$" + data.presupuestos['Otros'];
             document.getElementById('transporte').textContent = "$" + data.presupuestos['Transporte'];
+
+            document.getElementById('alimentacionGasto').textContent = "$" + data.gastos['Alimentacion'];
+            document.getElementById('otrosGasto').textContent = "$" + data.gastos['Otros'];
+            document.getElementById('transporteGasto').textContent = "$" + data.gastos['Transporte'];
         })
         .catch(error => {
             console.error('Error:', error);
