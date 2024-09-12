@@ -10,10 +10,10 @@ def leerPresupuestosE(nombre):
             if nombre in presupuestos:
                 return presupuestos[nombre]
             else:
-                return {"alimentacion": 0, "transporte": 0, "Entretenimiento": 0, "Meta": 0}
+                return {"alimentacion": 0, "transporte": 0, "Otros": 0, "Meta": 0}
     except Exception as e:
         print("Error al leer el archivo de presupuestos:", e)
-        return {"alimentacion": 0, "transporte": 0, "Entretenimiento": 0, "Meta": 0}
+        return {"alimentacion": 0, "transporte": 0, "Otros": 0, "Meta": 0}
 
 
 #funcion para mostrar el presupuesto total

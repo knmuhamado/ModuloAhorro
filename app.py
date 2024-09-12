@@ -123,8 +123,12 @@ def editar_gasto():
         if categoria not in gastos[usuario]:
             return jsonify({"success": False, "message": "Categoría no encontrada"}), 404
 
+        if not isinstance(gastos[usuario][categoria], list):
+            return jsonify({"success": False, "message": "El formato de la categoría no es una lista"}), 400
+
+
         # Actualizar el gasto de la categoría seleccionada para ese usuario
-        gastos[usuario][categoria] = int(nuevo_gasto)
+        gastos[usuario][categoria].append(int(nuevo_gasto))
 
         # Guardar los cambios en el archivo
         with open("estudianteFiles/gastos.txt", "w") as archivo:
