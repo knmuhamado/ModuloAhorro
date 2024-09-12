@@ -24,9 +24,11 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById('otros').textContent = "$" + data.presupuestos['Otros'];
             document.getElementById('transporte').textContent = "$" + data.presupuestos['Transporte'];
 
-            document.getElementById('alimentacionGasto').textContent = "$" + data.gastos['Alimentacion'];
-            document.getElementById('otrosGasto').textContent = "$" + data.gastos['Otros'];
-            document.getElementById('transporteGasto').textContent = "$" + data.gastos['Transporte'];
+            document.getElementById('alimentacionGasto').textContent = "$" + data.gastosS['Alimentacion'];
+            document.getElementById('otrosGasto').textContent = "$" + data.gastosS['Otros'];
+            document.getElementById('transporteGasto').textContent = "$" + data.gastosS['Transporte'];
+
+
         })
         .catch(error => {
             console.error('Error:', error);
