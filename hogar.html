@@ -180,7 +180,7 @@
 
             <li class="nav-item"></li>
             <a class="nav-link collapsed">
-                <i class="bi bi-lightning-charge-fill"></i>
+                <i class="bi bi-droplet-half"></i>
                 <span>Servicios</span>
             </a>
             </li>
@@ -188,7 +188,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed">
                     <i class="bi bi-controller"></i>
-                    <span>Entretenimiento</span>
+                    <span>Otros</span>
                 </a>
             </li><!-- End Register Page Nav -->
 
@@ -450,7 +450,7 @@
                                         <h5 class="card-title">Pendientes</h5>
                                         <div class="activity">
 
-                                            <div style="height:384px;">
+                                            <div style="height:340px;">
 
                                                 <div class="activity-item d-flex">
                                                     <div class="activite-label">
@@ -552,47 +552,63 @@
                                 <div class="card">
                                     <div class="card-body pb-0">
 
-                                        <h5 class="card-title">Gasto-Presupuesto <span> | Semanal</span></h5>
-                                        <div id="budgetChart" style="min-height: 400px;" class="echart"></div>
+                                        <h5 class="card-title">Presupuesto-Gasto <span> | Semanal</span></h5>
+                                        <table class="table table-borderless"
+                                            style="font-size: 85.55%;margin-left: -3.33%;">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Categoria</th>
+                                                    <th scope="col">Presupuesto</th>
+                                                    <th scope="col">Gastado</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Alimentación</td>
+                                                    <td id="alimentacion">
+                                                        <center>$20</center>
+                                                    </td>
+                                                    <td>
+                                                        <center>$10</center>
+                                                    </td>
+                                                </tr>
 
-                                        <script>
+                                                <tr>
+                                                    <td>Vivienda</td>
+                                                    <td id="Vivienda">
+                                                        <center>$20</center>
+                                                    </td>
+                                                    <td>
+                                                        <center>$10</center>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Servicios</td>
+                                                    <td id="Servicios">
+                                                        <center>$20</center>
+                                                    </td>
+                                                    <td>
+                                                        <center>$10</center>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Otros</td>
+                                                    <td id="Ocio">
+                                                        <center>$20</center>
+                                                    </td>
+                                                    <td>
+                                                        <center>$10</center>
+                                                    </td>
+                                                </tr>
 
 
-                                            document.addEventListener("DOMContentLoaded", () => {
-                                                var budgetChart = echarts.init(document.querySelector("#budgetChart")).setOption({
-                                                    legend: {
-                                                        data: ['Gastos', 'Presupuesto']
-                                                    },
-                                                    radar: {
-                                                        indicator: [
-                                                            { name: 'Transporte', max: <? php echo $sumaTotal; ?> },
-                                    { name: 'Alimentación', max: <? php echo $sumaTotal; ?> },
-                                                { name: 'Ocio', max: <? php echo $sumaTotal; ?> },
-                                ]
-                            },
-                                                series: [{
-                                                    name: 'Presupuesto vs Gastos',
-                                                    type: 'radar',
-                                                    data: [{
-                                                        value: [<? php echo $transporteGrafico; ?>, <? php echo $alimentacionGrafico; ?>, <? php echo $ocioGrafico; ?>],
-                                            name: 'Gastos',
-                                                areaStyle: {
-                                                color: 'rgba(0, 128, 255, 0.5)'
-                                            }
-                                },
-                                            {
-                                                value: [<? php echo $gTransporte; ?>, <? php echo $gAlimentacion; ?>, <? php echo $gOcio; ?>],
-                                                    name: 'Presupuesto',
-                                                        areaStyle: {
-                                                    color: 'rgba(64,255,0,0.5)'
-                                                }
-                                            }]
-                            }]
-                        });
-                    });
 
+                                            </tbody>
+                                        </table>
 
-                                        </script>
+                                        <div id="budgetChart" style="min-height: 160px;" class="echart"></div>
                                     </div>
                                 </div><!-- End Budget Report -->
                             </div>
@@ -601,8 +617,62 @@
                                 <div class="card">
 
                                     <div class="card-body pb-0">
-                                        <h5 class="card-title">Gráficas Gastos <span>| Semanal</span></h5>
-                                        <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
+                                        <h5 class="card-title">Gastos <span>| Semanal</span></h5>
+                                        <div id="trafficChart" style="min-height: 300px;" class="echart">
+                                            <div class="card">
+
+
+
+                                                <!-- List group With Icons -->
+                                                <ul class="list-group">
+
+
+                                                    <li class="list-group-item"><i
+                                                            class="bi bi-controller me-1 text-success"></i>
+                                                        <spam id="Otros1">Otros: $30</sapm>
+                                                    </li>
+                                                    <li class="list-group-item"><i
+                                                            class="bi bi-droplet-half me-1 text-primary"></i>
+                                                        <spam id="Servicios1">Servicios:$40</spam>
+                                                    </li>
+
+                                                    <li class="list-group-item"><i
+                                                            class="bi bi-house me-1 text-danger"></i>
+                                                        <spam id="Hogar1">Hogar:$40</spam>
+                                                    </li>
+                                                    <li class="list-group-item"><i
+                                                            class="bi bi-egg-fried me-1 text-warning"></i>
+                                                        <spam id="Alimentacion1">Alimentacion: $50</spam>
+                                                    </li>
+
+                                                    <li class="list-group-item"><i
+                                                            class="bi bi-controller me-1 text-success"></i>
+                                                        <spam id="Otros2">Otros: $30</sapm>
+                                                    </li>
+
+                                                    <li class="list-group-item"><i
+                                                            class="bi bi-droplet-half me-1 text-primary"></i>
+                                                        <spam id="Servicios2">Servicios:$40</spam>
+                                                    </li>
+
+                                                    <li class="list-group-item"><i
+                                                            class="bi bi-egg-fried me-1 text-warning"></i>
+                                                        <spam id="Alimentacion2">Alimentacion: $50</spam>
+                                                    </li>
+
+                                                    <li class="list-group-item"><i
+                                                            class="bi bi-house me-1 text-danger"></i>
+                                                        <spam id="Hogar2">Hogar:$40</spam>
+                                                    </li>
+
+
+                                                </ul><!-- End List group With Icons -->
+
+
+                                            </div>
+                                        </div>
+
+
                                         <script>
                                             document.addEventListener("DOMContentLoaded", () => {
                                                 echarts.init(document.querySelector("#trafficChart")).setOption({
