@@ -76,10 +76,10 @@ document.getElementById('formEditarGasto').addEventListener('submit', function (
     .then(data => {
         console.log(data);
         if (data.success) {
-            alert('Gasto actualizado correctamente');
+            alert('Gasto añadido correctamente');
             location.reload();
         } else {
-            alert('Error al actualizar el gasto');
+            alert('Error al añadir el gasto');
         }
     })
     .catch(error => console.error('Error:', error));

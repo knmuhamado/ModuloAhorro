@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import json
 from estudianteFiles.presupuestos import mostrarTotalP, leerPresupuestosE, editarPresupuestoE
-from estudianteFiles.gastos import leerGastosE, mostrarTotalGastos
+from estudianteFiles.gastos import leerGastosE, mostrarTotalGastos, añadirGastoE
 
 
 app = Flask(__name__)
@@ -94,10 +94,9 @@ def editar_presupuesto():
         if exito:
             return jsonify({"success": True})
         else:
-            return jsonify({"success": False, "message": mensaje}), 500
+            return jsonify({"success": False, "message": mensaje}), 404
     except Exception as e:
         return jsonify({"success": False, "message": str(e)}), 500
-
 
 
 @app.route('/editar_gasto', methods=['POST'])
@@ -111,26 +110,11 @@ def editar_gasto():
         return jsonify({"success": False, "message": "Datos incompletos"}), 400
 
     try:
-        # Leer el archivo de gastos
-        with open("estudianteFiles/gastos.txt", "r") as archivo:
-            gastos = json.load(archivo)
-
-        # Verificar si el usuario existe en el archivo
-        if usuario not in gastos:
-            return jsonify({"success": False, "message": "Usuario no encontrado"}), 404
-
-        # Verificar si la categoría existe para ese usuario
-        if categoria not in gastos[usuario]:
-            return jsonify({"success": False, "message": "Categoría no encontrada"}), 404
-
-        # Actualizar el gasto de la categoría seleccionada para ese usuario
-        gastos[usuario][categoria] = int(nuevo_gasto)
-
-        # Guardar los cambios en el archivo
-        with open("estudianteFiles/gastos.txt", "w") as archivo:
-            json.dump(gastos, archivo)
-
-        return jsonify({"success": True})
+        exito, mensaje = añadirGastoE(usuario, categoria, nuevo_gasto)
+        if exito:
+            return jsonify({"success": True})
+        else:
+            return jsonify({"success": False, "message": mensaje}), 404
     except Exception as e:
         return jsonify({"success": False, "message": str(e)}), 500
 

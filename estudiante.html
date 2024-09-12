@@ -225,20 +225,7 @@
             <div class="col-xxl-4 col-xl-4 col-md-4">
               <div class="card info-card sales-card">
                 <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Actualizar</h6>
-                    </li>
-                    <li>
-                      <form action="estudiante.php" method="POST">
-                        <input type="hidden" value="<?php echo (isset($sumaTotalG) ? $sumaTotalG : 0); ?>"
-                          name="presupuestoProm">
-                        <input type="submit" class="dropdown-item" href="#" name="actualizarSemanas"
-                          value="Nueva semana" onclick="recargarPaginas()">
-                      </form>
-                    </li>
-                  </ul>
+                  <a class="icon" data-bs-toggle="modal" data-bs-target="#modalEditarGastos"><i class="bi bi-plus-circle"></i></a>
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">Gastos</h5>
@@ -251,16 +238,12 @@
                       </h6>
                       <span id="porcentaje" class="text-success small pt-1 fw-bold"></span> <span
                         class="text-muted small pt-2 ps-1">del presupuesto</span>
-                      <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
-                        data-bs-target="#modalEditarGastos">
-                        Añadir Gasto
-                      </button>
 
                       <div class="modal fade" id="modalEditarGastos" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
-                              <h5 class="modal-title">Editar Gastos por Categoría</h5>
+                              <h5 class="modal-title">Añadir Gasto por Categoría</h5>
                               <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                             </div>
@@ -272,14 +255,14 @@
                                     <option value="" disabled selected>Elige una categoría</option>
                                     <option value="Alimentacion">Alimentación</option>
                                     <option value="Transporte">Transporte</option>
-                                    <option value="Entretenimiento">Entretenimiento</option>
+                                    <option value="Entretenimiento">Otros</option>
                                   </select>
                                 </div>
                                 <div class="mb-3">
                                   <label for="nuevoGasto">Nuevo valor del Gasto:</label>
                                   <input type="number" class="form-control" id="nuevoGasto" name="nuevoGasto" required>
                                 </div>
-                                <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                                <button type="submit" class="btn btn-success">Guardar Gasto</button>
                               </form>
                             </div>
                           </div>
@@ -321,7 +304,7 @@
                                     <option value="" disabled selected>Elige una categoría</option>
                                     <option value="Alimentacion">Alimentación</option>
                                     <option value="Transporte">Transporte</option>
-                                    <option value="Entretenimiento">Entretenimiento</option>
+                                    <option value="Otros">Otros</option>
                                   </select>
                                 </div>
                                 <div class="mb-3">
