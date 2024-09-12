@@ -241,20 +241,19 @@
                   </ul>
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title">Gastos <span>| Semanales</span></h5>
+                  <h5 class="card-title">Gastos</h5>
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bi bi-cart"></i>
                     </div>
                     <div class="ps-3">
                       <h6 id="total_gastos"><br>$
-                        <?php echo (isset($sumaTotalG) ? $sumaTotalG : 0); ?>
                       </h6>
                       <span id="porcentaje" class="text-success small pt-1 fw-bold"></span> <span
                         class="text-muted small pt-2 ps-1">del presupuesto</span>
-                      <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal"
+                      <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
                         data-bs-target="#modalEditarGastos">
-                        Definir Presupuesto
+                        Añadir Gasto
                       </button>
 
                       <div class="modal fade" id="modalEditarGastos" tabindex="-1" aria-hidden="true">
@@ -274,7 +273,6 @@
                                     <option value="Alimentacion">Alimentación</option>
                                     <option value="Transporte">Transporte</option>
                                     <option value="Entretenimiento">Entretenimiento</option>
-                                    <option value="Ahorro">Ahorro</option>
                                   </select>
                                 </div>
                                 <div class="mb-3">
@@ -306,7 +304,7 @@
                       <h6 id="presupuesto_usuario"><br>$</h6>
                       <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal"
                         data-bs-target="#modalEditarPresupuesto">
-                        Definir Presupuesto
+                        Editar Presupuesto
                       </button>
                       <div class="modal fade" id="modalEditarPresupuesto" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog">
@@ -325,7 +323,6 @@
                                     <option value="Alimentacion">Alimentación</option>
                                     <option value="Transporte">Transporte</option>
                                     <option value="Entretenimiento">Entretenimiento</option>
-                                    <option value="Ahorro">Ahorro</option>
                                   </select>
                                 </div>
                                 <div class="mb-3">
@@ -787,7 +784,7 @@
   <script src="assets/vendor/php-email-form/validate.js"></script>
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-  <script src="estudianteFiles/Prueba1_Ignorar.js"></script>
+  <script src="estudianteFiles/estudiante.js"></script>
 </body>
 
 </html>
