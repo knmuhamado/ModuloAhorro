@@ -1,1 +1,0 @@
-{'Maria': {'Alimentacion': 1212, 'Transporte': 1234, 'Otros': 12, 'Meta': 50}, 'Laura': {'Alimentacion': 60, 'Transporte': 80, 'Otros': 40, 'Meta': 150}}

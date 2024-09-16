@@ -3,6 +3,8 @@ from flask_cors import CORS
 from estudianteFiles.presupuestos import mostrarTotalP, leerPresupuestosE, editarPresupuestoE, definirMeta
 from estudianteFiles.gastos import leerGastosE, mostrarTotalGastos, añadirGastoE, sumarGastos, editar_Ahorro
 from estudianteFiles.pendientes import añadir_pendiente, eliminar_pendiente, obtener_pendientes
+from hogarFiles.presupuestos import  leerPresupuestosH
+from hogarFiles.gastos import leerGastosH
 app = Flask(__name__)
 CORS(app)  # Habilita CORS para todas las rutas
 
@@ -27,7 +29,7 @@ def verificarUsuario(nombre, contrasena):
         },
         "usuario4": {
             "nombre": "Laura",
-            "contrasena": "2431",
+            "contrasena": "1234",
             "perfil": "Hogar",
         },
     }
@@ -53,8 +55,12 @@ def procesar_datos():
             presupuesto = leerPresupuestosE(nombre)
             gastos = leerGastosE(nombre)
         else:
-            presupuesto = None
-            gastos = None
+            if resultado == "Hogar":
+                presupuesto = leerPresupuestosH(nombre)
+                gastos = leerGastosH(nombre)
+            else:
+                presupuesto = None
+                gastos = None
         if presupuesto:
             return jsonify({
                 "mensaje": "Acceso permitido",
@@ -78,6 +84,8 @@ def get_presupuesto():
         #sumar gastos por cada categoria
         gastosS= sumarGastos(name)
         return jsonify({"presupuesto_total": totalP, "gastado": gastado, "presupuestos": leerPresupuestosE(name), "gastosS": gastosS, "gastos": leerGastosE(name), "Meta": leerPresupuestosE(name)["Meta"]})
+
+
 
 @app.route('/editar_presupuesto', methods=['POST'])
 def editar_presupuesto():
