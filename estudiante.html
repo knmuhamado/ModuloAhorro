@@ -404,100 +404,50 @@
 
             <div class="row">
               <div class="col-lg-4">
-                <div class="card">
-                  <div class="filter">
-                    <a class="icon" href="#" data-bs-toggle="modal" data-bs-target="#modalAñadirPendientes"><i
-                        class="bi bi-plus-circle"></i></a>
-                  </div>
-                  <div class="card-body">
-                    <h5 class="card-title">Pendientes</h5>
-                    <div class="activity">
-
-                      <div style="height:284px;">
-
-                        <div class="activity-item d-flex">
-                          <div class="activite-label">
-                            <br><b>
-                              <p>$
-
-                              </p>
-                            </b>
-                          </div>
-                          <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                          <div class="activity-content flex-grow-1">
-
-                            <button class="btn btn-sm btn-outline-danger btn-delete m-3" onclick="eliminarPendiente()">
-                              <i class="bi bi-trash"></i>
-                            </button>
-                          </div>
-
-                        </div><!-- End activity item-->
-
-                        <script>
-                          function eliminarPendiente(idPendiente) {
-                            if (confirm('¿Estás seguro de que deseas eliminar este pendiente?')) {
-                              var button = document.querySelector('button[onclick="eliminarPendiente(' + idPendiente + ')"]');
-                              button.disabled = true; // Deshabilitar el botón mientras se procesa la solicitud
-
-                              $.ajax({
-                                url: 'estudiante.php',
-                                method: 'POST',
-                                data: { accion: 'eliminar', idPendiente: idPendiente },
-                                success: function (response) {
-                                  if (response === 'success') {
-                                    alert('Pendiente eliminado correctamente');
-                                    button.closest('.activity-item').remove(); // Eliminar el elemento del DOM sin recargar la página
-                                  } else {
-                                    alert('Error al eliminar el pendiente');
-                                    button.disabled = false; // Rehabilitar el botón si hay un error
-                                  }
-                                },
-                                error: function (xhr, status, error) {
-                                  alert('Error al eliminar el pendiente');
-                                  console.error(xhr.responseText);
-                                  button.disabled = false; // Rehabilitar el botón si hay un error
-                                }
-                              });
-                            }
-                          }
-                        </script>
-                        <div class="modal fade" id="modalAñadirPendientes" tabindex="-1"
-                          aria-labelledby="exampleModalLabel" aria-hidden="true">
-                          <div class="modal-dialog">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Añadir pendiente</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                  aria-label="Close"></button>
-                              </div>
-                              <div class="modal-body">
-                                <form action="estudiante.php" method="POST">
-                                  <div class="mb-3">
-                                    <label for="pendiente">Pendiente:</label>
-                                    <input type="text" class="form-control" id="pendiente" name="nombrePendiente"
-                                      required>
-                                  </div>
-                                  <div class="mb-3">
-                                    <label for="monto">Monto:</label>
-                                    <input type="number" class="form-control" id="monto" name="montoPendiente"
-                                      placeholder="Monto" min="0" required>
-                                  </div>
-                                  <div class="mb-3">
-                                    <label for="descripcion">Fecha:</label>
-                                    <input type="date" class="form-control" id="descripcion" name="fechaPendiente"
-                                      required>
-                                  </div>
-                                  <button type="submit" class="btn btn-success" name="enviarPendiente">Guardar</button>
-                                </form>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                  <div class="card">
+                      <div class="filter">
+                          <a class="icon" href="#" data-bs-toggle="modal" data-bs-target="#modalAñadirPendientes">
+                              <i class="bi bi-plus-circle"></i>
+                          </a>
                       </div>
-                    </div>
+                      <div class="card-body">
+                          <h5 class="card-title">Pendientes</h5>
+                          <div class="activity">
+                              <div id="actividad-container" style="height:340px;"></div>
+                          </div>
+                      </div>
                   </div>
-                </div>
+              </div>
+
+              <!-- Modal para añadir pendientes -->
+              <div class="modal fade" id="modalAñadirPendientes" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Añadir pendiente</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                              <form id="formAñadirPendiente">
+                                  <div class="mb-3">
+                                      <label for="pendiente">Pendiente:</label>
+                                      <input type="text" class="form-control" id="pendiente" name="nombrePendiente" required>
+                                  </div>
+                                  <div class="mb-3">
+                                      <label for="monto">Monto:</label>
+                                      <input type="number" class="form-control" id="monto" name="montoPendiente" placeholder="Monto" min="0" required>
+                                  </div>
+                                  <div class="mb-3">
+                                      <label for="fecha">Fecha:</label>
+                                      <input type="date" class="form-control" id="fecha" name="fechaPendiente" required>
+                                  </div>
+                                  <button type="submit" class="btn btn-success">Guardar</button>
+                              </form>
+                          </div>
+                      </div>
+                  </div>
               </div><!-- End Recent Activity -->
+
 
 
               <div class="col-lg-4">

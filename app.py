@@ -1,9 +1,8 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from estudianteFiles.presupuestos import mostrarTotalP, leerPresupuestosE, editarPresupuestoE, definirMeta
-from estudianteFiles.gastos import leerGastosE, mostrarTotalGastos, añadirGastoE, sumarAhorro, restarAhorro
-
-
+from estudianteFiles.gastos import leerGastosE, mostrarTotalGastos, añadirGastoE, sumarGastos, editar_Ahorro
+from estudianteFiles.pendientes import añadir_pendiente, eliminar_pendiente, obtener_pendientes
 app = Flask(__name__)
 CORS(app)  # Habilita CORS para todas las rutas
 
@@ -77,7 +76,7 @@ def get_presupuesto():
         gastado = mostrarTotalGastos(leerGastosE(name))
         totalP = mostrarTotalP(leerPresupuestosE(name))
         #sumar gastos por cada categoria
-        gastosS= { "Alimentacion": sum(leerGastosE(name)["Alimentacion"]), "Transporte": sum(leerGastosE(name)["Transporte"]), "Otros": sum(leerGastosE(name)["Otros"]), "Ahorro": leerGastosE(name)["Ahorro"]}
+        gastosS= sumarGastos(name)
         return jsonify({"presupuesto_total": totalP, "gastado": gastado, "presupuestos": leerPresupuestosE(name), "gastosS": gastosS, "gastos": leerGastosE(name), "Meta": leerPresupuestosE(name)["Meta"]})
 
 @app.route('/editar_presupuesto', methods=['POST'])
@@ -149,24 +148,63 @@ def editarAhorro():
     if not ahorro or not opcion:
         return jsonify({"success": False, "message": "Datos incompletos"}), 400
 
-    if opcion == "retirar":
-        try:
-            exito, mensaje = restarAhorro(usuario, ahorro)
-            if exito:
-                return jsonify({"success": True})
-            else:
-                return jsonify({"success": False, "message": mensaje}), 404
-        except Exception as e:
-            return jsonify({"success": False, "message": str(e)}), 500
-    elif opcion == "Añadir":
-        try:
-            exito, mensaje = sumarAhorro(usuario, ahorro)
-            if exito:
-                return jsonify({"success": True})
-            else:
-                return jsonify({"success": False, "message": mensaje}), 404
-        except Exception as e:
-            return jsonify({"success": False, "message": str(e)}), 500
+    try:
+        exito, mensaje = editar_Ahorro(usuario, opcion, ahorro)
+        if exito:
+            return jsonify({"success": True})
+        else:
+            return jsonify({"success": False, "message": mensaje}), 404
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
+
+# Funciones para manejar pendientes
+
+@app.route('/añadir_pendiente', methods=['POST'])
+def añadir_pendiente_route():
+    data = request.get_json()
+    fecha = data.get('fecha')
+    id_pendiente = data.get('id_pendiente')
+    monto = data.get('monto')
+    nombre = data.get('nombre')
+
+    if name is None:
+        return jsonify({"success": False, "message": "No se ha iniciado sesión"}), 401
+
+    if not (fecha and id_pendiente and monto and nombre):
+        return jsonify({"success": False, "message": "Datos incompletos"}), 400
+
+    try:
+        añadir_pendiente(fecha, id_pendiente, monto, nombre, name)
+        return jsonify({"success": True})
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
+
+@app.route('/eliminar_pendiente', methods=['POST'])
+def eliminar_pendiente_route():
+    data = request.get_json()
+    id_pendiente = data.get('id_pendiente')
+
+    if name is None:
+        return jsonify({"success": False, "message": "No se ha iniciado sesión"}), 401
+
+    if not id_pendiente:
+        return jsonify({"success": False, "message": "ID del pendiente no proporcionado"}), 400
+
+    try:
+        eliminar_pendiente(str(id_pendiente), name)
+        return jsonify({"success": True})
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
+
+@app.route('/pendientes', methods=['GET'])
+def get_pendientes():
+    if name is None:
+        return jsonify({"success": False, "message": "No se ha iniciado sesión"}), 401
+
+    try:
+        return jsonify(obtener_pendientes(name))
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
 
 
 if __name__ == '__main__':

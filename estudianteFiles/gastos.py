@@ -67,3 +67,26 @@ def restarAhorro(usuario, ahorro):
     except Exception as e:
         return False, str(e)
 
+#funcion para editar ahorro
+def editar_Ahorro(usuario, opcion, ahorro):
+    try:
+        if opcion == "retirar":
+            return restarAhorro(usuario, ahorro)
+        elif opcion == "Añadir":
+            return sumarAhorro(usuario, ahorro)
+    except Exception as e:
+        return False, str(e)
+
+#Funcion para sumar gastos por categorias
+def sumarGastos(usuario):
+    try:
+        with open("estudianteFiles/gastos.txt", "r") as archivo:
+            gastos = eval(archivo.read())
+        if usuario not in gastos:
+            return False, "Usuario no encontrado"
+        gastosS= { "Alimentacion": sum(gastos[usuario]["Alimentacion"]), "Transporte": sum(gastos[usuario]["Transporte"]), "Otros": sum(gastos[usuario]["Otros"]), "Ahorro": gastos[usuario]["Ahorro"]}
+        return gastosS
+    except Exception as e:
+        return False, str(e)
+
+
