@@ -223,8 +223,7 @@
                         <div class="col-xxl-4 col-xl-4 col-md-4">
                             <div class="card info-card sales-card">
                                 <div class="filter">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                            class="bi bi-three-dots"></i></a>
+                                    <a class="icon" href="#" data-bs-toggle="dropdown"></a>
                                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                         <li class="dropdown-header text-start">
                                             <h6>Actualizar</h6>
@@ -242,7 +241,7 @@
                                     </ul>
                                 </div>
                                 <div class="card-body">
-                                    <h5 class="card-title">Gastos <span>| Semanales</span></h5>
+                                    <h5 class="card-title">Gastos </h5>
                                     <div class="d-flex align-items-center">
                                         <div
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -254,10 +253,11 @@
                                             </h6>
                                             <span id="porcentaje" class="text-success small pt-1 fw-bold"></span> <span
                                                 class="text-muted small pt-2 ps-1">del presupuesto</span>
-                                            <button type="button" class="btn btn-outline-success btn-sm"
-                                                data-bs-toggle="modal" data-bs-target="#modalEditarGastos">
-                                                Definir Presupuesto
-                                            </button>
+                                            <div class="filter">
+                                                <a class="icon" data-bs-toggle="modal"
+                                                    data-bs-target="#modalEditarGastos"><i
+                                                        class="bi bi-plus-circle"></i></a>
+                                            </div>
 
                                             <div class="modal fade" id="modalEditarGastos" tabindex="-1"
                                                 aria-hidden="true">
@@ -562,46 +562,59 @@
                                             <tbody>
                                                 <tr>
                                                     <td>Alimentación</td>
-                                                    <td id="alimentacion">
-                                                        <center>$20</center>
+                                                    <td>
+                                                        <center>
+                                                            $<spam id="alimentacion"></spam>
+                                                        </center>
                                                     </td>
                                                     <td>
-                                                        <center>$10</center>
+                                                        <center>
+                                                            $<spam id="alimentacionGasto"></spam>
+                                                        </center>
                                                     </td>
                                                 </tr>
 
                                                 <tr>
                                                     <td>Vivienda</td>
-                                                    <td id="Vivienda">
-                                                        <center>$20</center>
+                                                    <td>
+                                                        <center>
+                                                            $<spam id="vivienda"></spam>
+                                                        </center>
                                                     </td>
                                                     <td>
-                                                        <center>$10</center>
+                                                        <center>
+                                                            $<spam id="viviendaGasto"></spam>
+                                                        </center>
                                                     </td>
                                                 </tr>
 
-                                                <tr>
-                                                    <td>Servicios</td>
-                                                    <td id="Servicios">
-                                                        <center>$20</center>
-                                                    </td>
-                                                    <td>
-                                                        <center>$10</center>
-                                                    </td>
+                                                <tr></tr>
+                                                <td>Servicios</td>
+                                                <td>
+                                                    <center>
+                                                        $<spam id="servicios"></spam>
+                                                    </center>
+                                                </td>
+                                                <td>
+                                                    <center>
+                                                        $<spam id="serviciosGasto"></spam>
+                                                    </center>
+                                                </td>
                                                 </tr>
 
                                                 <tr>
                                                     <td>Otros</td>
-                                                    <td id="Ocio">
-                                                        <center>$20</center>
+                                                    <td>
+                                                        <center>
+                                                            $<spam id="otros"></spam>
+                                                        </center>
                                                     </td>
                                                     <td>
-                                                        <center>$10</center>
+                                                        <center>
+                                                            $<spam id="otrosGasto"></spam>
+                                                        </center>
                                                     </td>
                                                 </tr>
-
-
-
                                             </tbody>
                                         </table>
 
@@ -624,42 +637,42 @@
                                                 <ul class="list-group">
 
 
-                                                    <li class="list-group-item"><i
+                                                    <li class="list-group-item" id="divOtro1"><i
                                                             class="bi bi-controller me-1 text-success"></i>
-                                                        <spam id="Otros1">Otros: $30</sapm>
+                                                        <spam id="Otros1">Otros: $0</sapm>
                                                     </li>
                                                     <li class="list-group-item"><i
                                                             class="bi bi-droplet-half me-1 text-primary"></i>
-                                                        <spam id="Servicios1">Servicios:$40</spam>
+                                                        <spam id="Servicios1">Servicios:$0</spam>
                                                     </li>
 
                                                     <li class="list-group-item"><i
                                                             class="bi bi-house me-1 text-danger"></i>
-                                                        <spam id="Hogar1">Hogar:$40</spam>
+                                                        <spam id="Hogar1">Hogar:$0</spam>
                                                     </li>
-                                                    <li class="list-group-item"><i
+                                                    <li class="list-group-item" id="divAlimentacion1"><i
                                                             class="bi bi-egg-fried me-1 text-warning"></i>
-                                                        <spam id="Alimentacion1">Alimentacion: $50</spam>
+                                                        <spam id="Alimentacion1">Alimentacion: $0</spam>
                                                     </li>
 
-                                                    <li class="list-group-item"><i
+                                                    <li class="list-group-item" id="divOtro2"><i
                                                             class="bi bi-controller me-1 text-success"></i>
-                                                        <spam id="Otros2">Otros: $30</sapm>
+                                                        <spam id="Otros2">Otros: $0</sapm>
                                                     </li>
 
                                                     <li class="list-group-item"><i
                                                             class="bi bi-droplet-half me-1 text-primary"></i>
-                                                        <spam id="Servicios2">Servicios:$40</spam>
+                                                        <spam id="Servicios2">Servicios: $0</spam>
                                                     </li>
 
-                                                    <li class="list-group-item"><i
+                                                    <li class="list-group-item" id="divAlimentacion2"><i
                                                             class="bi bi-egg-fried me-1 text-warning"></i>
-                                                        <spam id="Alimentacion2">Alimentacion: $50</spam>
+                                                        <spam id="Alimentacion2">Alimentacion: $0</spam>
                                                     </li>
 
                                                     <li class="list-group-item"><i
                                                             class="bi bi-house me-1 text-danger"></i>
-                                                        <spam id="Hogar2">Hogar:$40</spam>
+                                                        <spam id="Hogar2">Hogar: $0</spam>
                                                     </li>
 
 

@@ -27,6 +27,33 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             document.getElementById('porcentaje').textContent = porcentaje.toFixed(2) + '%';
+            document.getElementById('alimentacion').textContent = data.presupuestos['Alimentacion'];
+            document.getElementById('vivienda').textContent = data.presupuestos['Vivienda'];
+            document.getElementById('servicios').textContent = data.presupuestos['Servicios'];
+            document.getElementById('otros').textContent = data.presupuestos['Otros'];
+
+            document.getElementById('alimentacionGasto').textContent = data.gastosS['Alimentacion'];
+            document.getElementById('viviendaGasto').textContent = data.gastosS['Vivienda'];
+            document.getElementById('serviciosGasto').textContent = data.gastosS['Servicios'];
+            document.getElementById('otrosGasto').textContent = data.gastosS['Otros'];
+
+
+            var porcentajeA = 0;
+            if (data.Meta > 0) {
+                porcentajeA = (data.gastosS['Ahorro'] / data.Meta) * 100;
+            }
+
+            document.getElementById('porcentajeA').textContent = porcentajeA.toFixed(2) + '%';
+            document.getElementById('alimentacion').textContent = data.presupuestos['Alimentacion'];
+            document.getElementById('otros').textContent = data.presupuestos['Otros'];
+            document.getElementById('transporte').textContent = data.presupuestos['Transporte'];
+
+            document.getElementById('alimentacionGasto').textContent = data.gastosS['Alimentacion'];
+            document.getElementById('otrosGasto').textContent = data.gastosS['Otros'];
+            document.getElementById('transporteGasto').textContent = data.gastosS['Transporte'];
+
+
+
 
 
         })
