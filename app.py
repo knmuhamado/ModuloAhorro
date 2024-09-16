@@ -4,7 +4,7 @@ from estudianteFiles.presupuestos import mostrarTotalP, leerPresupuestosE, edita
 from estudianteFiles.gastos import leerGastosE, mostrarTotalGastos, añadirGastoE, sumarGastos, editar_Ahorro
 from estudianteFiles.pendientes import añadir_pendiente, eliminar_pendiente, obtener_pendientes
 from hogarFiles.presupuestos import  leerPresupuestosH
-from hogarFiles.gastos import leerGastosH
+from hogarFiles.gastos import leerGastosH,sumarGastosH
 app = Flask(__name__)
 CORS(app)  # Habilita CORS para todas las rutas
 
@@ -85,7 +85,16 @@ def get_presupuesto():
         gastosS= sumarGastos(name)
         return jsonify({"presupuesto_total": totalP, "gastado": gastado, "presupuestos": leerPresupuestosE(name), "gastosS": gastosS, "gastos": leerGastosE(name), "Meta": leerPresupuestosE(name)["Meta"]})
 
-
+@app.route('/datosH', methods=['GET'])
+def get_presupuestoH():
+    if name is None:
+        return jsonify({"mensaje": "No se ha iniciado sesión"})
+    else:
+        gastado = mostrarTotalGastos(leerGastosH(name))
+        totalP = mostrarTotalP(leerPresupuestosH(name))
+        #sumar gastos por cada categoria
+        gastosS= sumarGastosH(name)
+        return jsonify({"presupuesto_total": totalP, "gastado": gastado, "presupuestos": leerPresupuestosH(name), "gastosS": gastosS, "gastos": leerGastosH(name), "Meta": leerPresupuestosH(name)["Meta"]})
 
 @app.route('/editar_presupuesto', methods=['POST'])
 def editar_presupuesto():

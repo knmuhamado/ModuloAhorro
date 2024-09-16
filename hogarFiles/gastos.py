@@ -78,7 +78,7 @@ def editar_Ahorro(usuario, opcion, ahorro):
         return False, str(e)
 
 #Funcion para sumar gastos por categorias
-def sumarGastos(usuario):
+def sumarGastosH(usuario):
     try:
         with open("hogarFiles/archivosTxt/gastos.txt", "r") as archivo:
             gastos = eval(archivo.read())

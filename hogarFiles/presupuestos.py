@@ -17,7 +17,7 @@ def leerPresupuestosH(nombre):
 
 
 #funcion para mostrar el presupuesto total
-def mostrarTotalP(presupuesto):
+def mostrarTotalPH(presupuesto):
     return sum(value for key, value in presupuesto.items() if key != 'Meta')
 
 
