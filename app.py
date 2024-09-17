@@ -4,7 +4,8 @@ from estudianteFiles.presupuestos import mostrarTotalP, leerPresupuestosE, edita
 from estudianteFiles.gastos import leerGastosE, mostrarTotalGastos, añadirGastoE, sumarGastos, editar_Ahorro
 from estudianteFiles.pendientes import añadir_pendiente, eliminar_pendiente, obtener_pendientes
 from hogarFiles.presupuestos import  leerPresupuestosH, editarPresupuestoH,definirMetaH
-from hogarFiles.gastos import leerGastosH,sumarGastosH,añadirGastoH
+from hogarFiles.gastos import leerGastosH,sumarGastosH,añadirGastoH,editar_AhorroH
+from hogarFiles.pendientes import añadir_pendienteH, eliminar_pendienteH, obtener_pendientesH
 app = Flask(__name__)
 CORS(app)  # Habilita CORS para todas las rutas
 
@@ -229,6 +230,25 @@ def editarAhorro():
             return jsonify({"success": False, "message": mensaje}), 404
     except Exception as e:
         return jsonify({"success": False, "message": str(e)}), 500
+    
+@app.route('/ahorroH', methods=['POST']) #Este es el que no me quiere dar dice que la lista de ahorro no es iterable
+def editarAhorroH():
+    data = request.get_json()
+    usuario = name
+    ahorro = data.get('ahorro')
+    opcion = data.get('opcion')
+
+    if not ahorro or not opcion:
+        return jsonify({"success": False, "message": "Datos incompletos"}), 400
+
+    try:
+        exito, mensaje = editar_AhorroH(usuario, opcion, ahorro)
+        if exito:
+            return jsonify({"success": True})
+        else:
+            return jsonify({"success": False, "message": mensaje}), 404
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
 
 # Funciones para manejar pendientes
 
@@ -251,6 +271,26 @@ def añadir_pendiente_route():
         return jsonify({"success": True})
     except Exception as e:
         return jsonify({"success": False, "message": str(e)}), 500
+    
+@app.route('/añadir_pendienteH', methods=['POST'])
+def añadir_pendiente_routeH():
+    data = request.get_json()
+    fecha = data.get('fecha')
+    id_pendiente = data.get('id_pendiente')
+    monto = data.get('monto')
+    nombre = data.get('nombre')
+
+    if name is None:
+        return jsonify({"success": False, "message": "No se ha iniciado sesión"}), 401
+
+    if not (fecha and id_pendiente and monto and nombre):
+        return jsonify({"success": False, "message": "Datos incompletos"}), 400
+
+    try:
+        añadir_pendienteH(fecha, id_pendiente, monto, nombre, name)
+        return jsonify({"success": True})
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
 
 @app.route('/eliminar_pendiente', methods=['POST'])
 def eliminar_pendiente_route():
@@ -268,6 +308,23 @@ def eliminar_pendiente_route():
         return jsonify({"success": True})
     except Exception as e:
         return jsonify({"success": False, "message": str(e)}), 500
+    
+@app.route('/eliminar_pendienteH', methods=['POST'])
+def eliminar_pendiente_routeH():
+    data = request.get_json()
+    id_pendiente = data.get('id_pendiente')
+
+    if name is None:
+        return jsonify({"success": False, "message": "No se ha iniciado sesión"}), 401
+
+    if not id_pendiente:
+        return jsonify({"success": False, "message": "ID del pendiente no proporcionado"}), 400
+
+    try:
+        eliminar_pendienteH(str(id_pendiente), name)
+        return jsonify({"success": True})
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
 
 @app.route('/pendientes', methods=['GET'])
 def get_pendientes():
@@ -276,6 +333,16 @@ def get_pendientes():
 
     try:
         return jsonify(obtener_pendientes(name))
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
+    
+@app.route('/pendientesH', methods=['GET'])
+def get_pendientesH():
+    if name is None:
+        return jsonify({"success": False, "message": "No se ha iniciado sesión"}), 401
+
+    try:
+        return jsonify(obtener_pendientesH(name))
     except Exception as e:
         return jsonify({"success": False, "message": str(e)}), 500
 

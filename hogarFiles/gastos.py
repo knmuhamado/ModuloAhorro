@@ -68,7 +68,7 @@ def restarAhorro(usuario, ahorro):
         return False, str(e)
 
 #funcion para editar ahorro
-def editar_Ahorro(usuario, opcion, ahorro):
+def editar_AhorroH(usuario, opcion, ahorro):
     try:
         if opcion == "retirar":
             return restarAhorro(usuario, ahorro)

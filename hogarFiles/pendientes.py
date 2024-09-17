@@ -1,5 +1,5 @@
-def obtener_pendientes(usuario):
-    ruta_archivo = 'estudianteFiles/archivosTxt/pendientes.txt'
+def obtener_pendientesH(usuario):
+    ruta_archivo = 'hogarFiles/archivosTxt/pendientes.txt'
     try:
         with open(ruta_archivo, 'r') as archivo:
             contenido = archivo.read()
@@ -16,8 +16,8 @@ def obtener_pendientes(usuario):
         return {"success": False, "message": str(e)}
 
 
-def guardar_pendientes(pendientes):
-    ruta_archivo = 'estudianteFiles/archivosTxt/pendientes.txt'
+def guardar_pendientesH(pendientes):
+    ruta_archivo = 'hogarFiles/archivosTxt/pendientes.txt'
     try:
         with open(ruta_archivo, 'w') as archivo:
             for pendiente in pendientes:
@@ -26,9 +26,9 @@ def guardar_pendientes(pendientes):
     except Exception as e:
         raise Exception(f"Error al guardar pendientes: {str(e)}")
 
-def añadir_pendiente(fecha, id_pendiente, monto, nombre, usuario):
+def añadir_pendienteH(fecha, id_pendiente, monto, nombre, usuario):
     #se abre el archivo para añadir un nuevo pendiente
-    ruta_archivo = 'estudianteFiles/archivosTxt/pendientes.txt'
+    ruta_archivo = 'hogarFiles/archivosTxt/pendientes.txt'
     try:
         with open(ruta_archivo, 'a') as archivo:
             archivo.write(f"{fecha},{id_pendiente},{monto},{nombre},{usuario}\n")
@@ -36,9 +36,9 @@ def añadir_pendiente(fecha, id_pendiente, monto, nombre, usuario):
         raise Exception(f"Error al añadir pendiente: {str(e)}")
 
 
-def eliminar_pendiente(id_pendiente, usuario):
+def eliminar_pendienteH(id_pendiente, usuario):
     # se elimina un pendiente
-    ruta_archivo = 'estudianteFiles/archivosTxt/pendientes.txt'
+    ruta_archivo = 'hogarFiles/archivosTxt/pendientes.txt'
     try:
         with open(ruta_archivo, 'r') as archivo:
             contenido = archivo.read()

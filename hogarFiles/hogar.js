@@ -149,8 +149,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     },
                 }
             }).render();
+            cargarPendientes();
 
-            console.log("Hola")
+
         })
         .catch(error => {
             console.error('Error:', error);
@@ -243,3 +244,132 @@ document.getElementById('formDefinirMeta').addEventListener('submit', function (
         })
         .catch(error => console.error('Error:', error));
 });
+
+document.getElementById('formEditarAhorro').addEventListener('submit', function (event) {
+    event.preventDefault();  // Evitar que el formulario se envíe de forma tradicional
+
+    // Obtener los valores seleccionados
+    var ahorro = document.getElementById('montoAhorro').value;
+    var opcion = document.getElementById('opcionAhorro').value;
+
+    // Validar que ambos campos tengan valores
+    if (!ahorro || !opcion) {
+        alert('Por favor completa ambos campos.');
+        return;
+    }
+
+
+    // Enviar los datos al servidor usando Fetch API
+    fetch('http://127.0.0.1:5000/ahorroH', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            ahorro: ahorro,
+            opcion: opcion
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Ahorro actualizado correctamente');
+                location.reload();
+            } else {
+                alert('Error al actualizar el ahorro: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error en el fetch:', error);
+            alert('Hubo un problema al conectarse con el servidor.');
+        });
+});
+
+document.getElementById('formAñadirPendiente').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    // Recoger datos del formulario
+    const formData = new FormData(this);
+    const data = {
+        fecha: formData.get('fechaPendiente'),
+        id_pendiente: Date.now(), // Generar un ID único
+        monto: formData.get('montoPendiente'),
+        nombre: formData.get('nombrePendiente')
+    };
+
+    // Enviar datos al servidor
+    fetch('http://127.0.0.1:5000/añadir_pendienteH', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                alert('Pendiente añadido correctamente');
+                cargarPendientes();
+                document.getElementById('formAñadirPendiente').reset();
+                $('#modalAñadirPendientes').modal('hide');
+            } else {
+                alert('Error al añadir el pendiente: ' + result.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Hubo un problema al conectarse con el servidor.');
+        });
+});
+function cargarPendientes() {
+    fetch('http://127.0.0.1:5000/pendientesH')
+        .then(response => response.json())
+        .then(data => {
+            console.log('Datos de pendientes:', data);  // Agrega esto para depuración
+            const container = document.getElementById('actividad-container');
+            container.innerHTML = ''; // Limpiar el contenedor
+
+            data.pendientes.forEach(pendiente => {
+                // Asegúrate de que la estructura coincide con los datos JSON
+                const [fecha, id, monto, nombre, usuario] = pendiente;
+
+                const item = document.createElement('div');
+                item.className = 'activity-item d-flex';
+                item.innerHTML = `
+                    <div class="activite-label">
+                        <b><p>$${monto}</p></b>
+                        <b><p>${fecha}</p></b>
+                    </div>
+                    <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
+                    <div class="activity-content flex-grow-1">
+                        ${nombre}
+                        <button class="btn btn-sm btn-outline-danger btn-delete m-3" onclick="eliminarPendiente(${id})">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+
+
+function eliminarPendiente(idPendiente) {
+    if (confirm('¿Estás seguro de que deseas eliminar este pendiente?')) {
+        fetch('http://127.0.0.1:5000/eliminar_pendienteH', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id_pendiente: idPendiente })
+        })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    alert('Pendiente eliminado correctamente');
+                    cargarPendientes();
+                } else {
+                    alert('Error al eliminar el pendiente: ' + result.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+}
