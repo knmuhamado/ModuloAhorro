@@ -73,6 +73,35 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById('divAlimentacion2').style.display = "none";
             }
 
+            if (data.gastos['Vivienda'].length >= 2) {
+                document.getElementById('divVivienda1').style.display = "block";
+                document.getElementById('divVivienda2').style.display = "block";
+                document.getElementById('Vivienda1').textContent = "Vivienda: $" + data.gastos['Vivienda'][data.gastos['Vivienda'].length - 1];
+                document.getElementById('Vivienda2').textContent = "Vivienda: $" + data.gastos['Vivienda'][data.gastos['Vivienda'].length - 2];
+            } else if (data.gastos['Vivienda'].length == 1) {
+                document.getElementById('divVivienda1').style.display = "block";
+                document.getElementById('Vivienda1').textContent = "Vivienda: $" + data.gastos['Vivienda'][data.gastos['Vivienda'].length - 1];
+                document.getElementById('divVivienda2').style.display = "none";
+            } else {
+                document.getElementById('divVivienda1').style.display = "none";
+                document.getElementById('divVivienda2').style.display = "none";
+            }
+
+            if (data.gastos['Servicios'].length >= 2) {
+                document.getElementById('divServicios1').style.display = "block";
+                document.getElementById('divServicios2').style.display = "block";
+                document.getElementById('Servicios1').textContent = "Servicios: $" + data.gastos['Servicios'][data.gastos['Servicios'].length - 1];
+                document.getElementById('Servicios2').textContent = "Servicios: $" + data.gastos['Servicios'][data.gastos['Servicios'].length - 2];
+            } else if (data.gastos['Vivienda'].length == 1) {
+                document.getElementById('divServicios1').style.display = "block";
+                document.getElementById('Servicios1').textContent = "Servicios: $" + data.gastos['Servicios'][data.gastos['Servicios'].length - 1];
+                document.getElementById('divServicios2').style.display = "none";
+            } else {
+                document.getElementById('divServicios1').style.display = "none";
+                document.getElementById('divServicios2').style.display = "none";
+            }
+
+
             new ApexCharts(document.querySelector("#reportsChart"), {
 
 

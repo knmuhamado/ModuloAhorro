@@ -358,7 +358,8 @@
                               <form id="formDefinirMeta">
                                 <div class="mb-3">
                                   <label for="ahorro">Nueva Meta:</label>
-                                  <input class="form-control" id="ahorro" name="ahorroEstablecido" type="number" required>
+                                  <input class="form-control" id="ahorro" name="ahorroEstablecido" type="number"
+                                    required>
                                 </div>
                                 <button type="submit" class="btn btn-success">Registrar</button>
                               </form>
@@ -372,7 +373,8 @@
                           <div class="modal-content">
                             <div class="modal-header">
                               <h5 class="modal-title">Editar Ahorro</h5>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                               <form id="formEditarAhorro">
@@ -404,48 +406,50 @@
 
             <div class="row">
               <div class="col-lg-4">
-                  <div class="card">
-                      <div class="filter">
-                          <a class="icon" href="#" data-bs-toggle="modal" data-bs-target="#modalAñadirPendientes">
-                              <i class="bi bi-plus-circle"></i>
-                          </a>
-                      </div>
-                      <div class="card-body">
-                          <h5 class="card-title">Pendientes</h5>
-                          <div class="activity">
-                              <div id="actividad-container" style="height:340px;"></div>
-                          </div>
-                      </div>
+                <div class="card" style="height: 80%;">
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="modal" data-bs-target="#modalAñadirPendientes">
+                      <i class="bi bi-plus-circle"></i>
+                    </a>
                   </div>
+                  <div class="card-body">
+                    <h5 class="card-title">Pendientes</h5>
+                    <div class="activity">
+                      <div id="actividad-container" style="height:340px;"></div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <!-- Modal para añadir pendientes -->
-              <div class="modal fade" id="modalAñadirPendientes" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                      <div class="modal-content">
-                          <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Añadir pendiente</h5>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                              <form id="formAñadirPendiente">
-                                  <div class="mb-3">
-                                      <label for="pendiente">Pendiente:</label>
-                                      <input type="text" class="form-control" id="pendiente" name="nombrePendiente" required>
-                                  </div>
-                                  <div class="mb-3">
-                                      <label for="monto">Monto:</label>
-                                      <input type="number" class="form-control" id="monto" name="montoPendiente" placeholder="Monto" min="0" required>
-                                  </div>
-                                  <div class="mb-3">
-                                      <label for="fecha">Fecha:</label>
-                                      <input type="date" class="form-control" id="fecha" name="fechaPendiente" required>
-                                  </div>
-                                  <button type="submit" class="btn btn-success">Guardar</button>
-                              </form>
-                          </div>
-                      </div>
+              <div class="modal fade" id="modalAñadirPendientes" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Añadir pendiente</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form id="formAñadirPendiente">
+                        <div class="mb-3">
+                          <label for="pendiente">Pendiente:</label>
+                          <input type="text" class="form-control" id="pendiente" name="nombrePendiente" required>
+                        </div>
+                        <div class="mb-3">
+                          <label for="monto">Monto:</label>
+                          <input type="number" class="form-control" id="monto" name="montoPendiente" placeholder="Monto"
+                            min="0" required>
+                        </div>
+                        <div class="mb-3">
+                          <label for="fecha">Fecha:</label>
+                          <input type="date" class="form-control" id="fecha" name="fechaPendiente" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                      </form>
+                    </div>
                   </div>
+                </div>
               </div><!-- End Recent Activity -->
 
 
@@ -519,7 +523,7 @@
               </div>
               <div class="col-lg-4">
                 <!-- Website Traffic -->
-                <div class="card">
+                <div class="card" style="height: 80%;">
 
                   <div class="card-body pb-0">
                     <h5 class="card-title">Ultimos Gastos</h5>

@@ -1,1 +1,1 @@
-{'Maria': {'Alimentacion': [123], 'Vivienda': [],'Servicios':[], 'Otros': [], 'Ahorro': 12}, 'Laura': {'Alimentacion': [1], 'Vivienda': [1],'Servicios':[1], 'Otros': [1], 'Ahorro': []}}
+{'Maria': {'Alimentacion': [123], 'Vivienda': [],'Servicios':[], 'Otros': [], 'Ahorro': 12}, 'Laura': {'Alimentacion': [1,0], 'Vivienda': [1],'Servicios':[1], 'Otros': [1], 'Ahorro': [20]}}
