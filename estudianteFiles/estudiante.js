@@ -204,7 +204,7 @@ document.getElementById('formEditarGasto').addEventListener('submit', function (
         .catch(error => console.error('Error:', error));
 });
 
-    document.getElementById('formDefinirMeta').addEventListener('submit', function (event) {
+document.getElementById('formDefinirMeta').addEventListener('submit', function (event) {
     event.preventDefault();
 
     var nuevaMeta = document.getElementById('ahorro').value;
@@ -219,19 +219,19 @@ document.getElementById('formEditarGasto').addEventListener('submit', function (
             meta: nuevaMeta
         })
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert('Meta de ahorro actualizada correctamente');
-            location.reload();
-        } else {
-            alert('Error al actualizar la meta: ' + data.message);
-        }
-    })
-    .catch(error => console.error('Error:', error));
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Meta de ahorro actualizada correctamente');
+                location.reload();
+            } else {
+                alert('Error al actualizar la meta: ' + data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
 });
 
-    document.getElementById('formEditarAhorro').addEventListener('submit', function(event) {
+document.getElementById('formEditarAhorro').addEventListener('submit', function (event) {
     event.preventDefault();  // Evitar que el formulario se envíe de forma tradicional
 
     // Obtener los valores seleccionados
@@ -256,21 +256,21 @@ document.getElementById('formEditarGasto').addEventListener('submit', function (
             opcion: opcion
         })
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert('Ahorro actualizado correctamente');
-            location.reload();
-        } else {
-            alert('Error al actualizar el ahorro: ' + data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error en el fetch:', error);
-        alert('Hubo un problema al conectarse con el servidor.');
-    });
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Ahorro actualizado correctamente');
+                location.reload();
+            } else {
+                alert('Error al actualizar el ahorro: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error en el fetch:', error);
+            alert('Hubo un problema al conectarse con el servidor.');
+        });
 });
-document.getElementById('formAñadirPendiente').addEventListener('submit', function(e) {
+document.getElementById('formAñadirPendiente').addEventListener('submit', function (e) {
     e.preventDefault();
 
     // Recoger datos del formulario
@@ -288,21 +288,21 @@ document.getElementById('formAñadirPendiente').addEventListener('submit', funct
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
     })
-    .then(response => response.json())
-    .then(result => {
-        if (result.success) {
-            alert('Pendiente añadido correctamente');
-            cargarPendientes();
-            document.getElementById('formAñadirPendiente').reset();
-            $('#modalAñadirPendientes').modal('hide');
-        } else {
-            alert('Error al añadir el pendiente: ' + result.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Hubo un problema al conectarse con el servidor.');
-    });
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                alert('Pendiente añadido correctamente');
+                cargarPendientes();
+                document.getElementById('formAñadirPendiente').reset();
+                $('#modalAñadirPendientes').modal('hide');
+            } else {
+                alert('Error al añadir el pendiente: ' + result.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Hubo un problema al conectarse con el servidor.');
+        });
 });
 function cargarPendientes() {
     fetch('http://127.0.0.1:5000/pendientes')
@@ -346,15 +346,15 @@ function eliminarPendiente(idPendiente) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id_pendiente: idPendiente })
         })
-        .then(response => response.json())
-        .then(result => {
-            if (result.success) {
-                alert('Pendiente eliminado correctamente');
-                cargarPendientes();
-            } else {
-                alert('Error al eliminar el pendiente: ' + result.message);
-            }
-        })
-        .catch(error => console.error('Error:', error));
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    alert('Pendiente eliminado correctamente');
+                    cargarPendientes();
+                } else {
+                    alert('Error al eliminar el pendiente: ' + result.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
     }
 }

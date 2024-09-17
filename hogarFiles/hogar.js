@@ -44,22 +44,86 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             document.getElementById('porcentajeA').textContent = porcentajeA.toFixed(2) + '%';
-            document.getElementById('alimentacion').textContent = data.presupuestos['Alimentacion'];
-            document.getElementById('otros').textContent = data.presupuestos['Otros'];
-            document.getElementById('transporte').textContent = data.presupuestos['Transporte'];
 
-            document.getElementById('alimentacionGasto').textContent = data.gastosS['Alimentacion'];
-            document.getElementById('otrosGasto').textContent = data.gastosS['Otros'];
-            document.getElementById('transporteGasto').textContent = data.gastosS['Transporte'];
+            if (data.gastos['Otros'].length >= 2) {
+                document.getElementById('divOtro1').style.display = "block";
+                document.getElementById('divOtro2').style.display = "block";
+                document.getElementById('Otros1').textContent = "Otros: $" + data.gastos['Otros'][data.gastos['Otros'].length - 1];
+                document.getElementById('Otros2').textContent = "Otros: $" + data.gastos['Otros'][data.gastos['Otros'].length - 2];
+            } else if (data.gastos['Otros'].length == 1) {
+                document.getElementById('divOtro1').style.display = "block";
+                document.getElementById('Otros1').textContent = "Otros: $" + data.gastos['Otros'][data.gastos['Otros'].length - 1];
+                document.getElementById('divOtro2').style.display = "none";
+            } else {
+                document.getElementById('divOtro1').style.display = "none";
+                document.getElementById('divOtro2').style.display = "none";
+            }
+
+            if (data.gastos['Alimentacion'].length >= 2) {
+                document.getElementById('divAlimentacion1').style.display = "block";
+                document.getElementById('divAlimentacion2').style.display = "block";
+                document.getElementById('Alimentacion1').textContent = "Alimentacion: $" + data.gastos['Alimentacion'][data.gastos['Alimentacion'].length - 1];
+                document.getElementById('Alimentacion2').textContent = "Alimentacion: $" + data.gastos['Alimentacion'][data.gastos['Alimentacion'].length - 2];
+            } else if (data.gastos['Alimentacion'].length == 1) {
+                document.getElementById('divAlimentacion1').style.display = "block";
+                document.getElementById('Alimentacion1').textContent = "Alimentacion: $" + data.gastos['Alimentacion'][data.gastos['Alimentacion'].length - 1];
+                document.getElementById('divAlimentacion2').style.display = "none";
+            } else {
+                document.getElementById('divAlimentacion1').style.display = "none";
+                document.getElementById('divAlimentacion2').style.display = "none";
+            }
+
+            new ApexCharts(document.querySelector("#reportsChart"), {
 
 
+                series: [{
+                    name: 'Presupuestos',
+                    data: [parseInt(data.presupuestos['Alimentacion']), parseInt(data.presupuestos['Vivienda']), parseInt(data.presupuestos['Servicios']), parseInt(data.presupuestos['Otros'])],
+                }, {
+                    name: 'Gastos',
+                    data: [parseInt(data.gastosS['Alimentacion']), parseInt(data.gastosS['Vivienda']), parseInt(data.gastosS['Servicios']), parseInt(data.gastosS['Otros'])],
+                },],
+                chart: {
+                    height: 350,
+                    type: 'area',
+                    toolbar: {
+                        show: false
+                    },
+                },
+                markers: {
+                    size: 4
+                },
+                colors: ['#4154f1', '#2eca6a'],
+                fill: {
+                    type: "gradient",
+                    gradient: {
+                        shadeIntensity: 1,
+                        opacityFrom: 0.3,
+                        opacityTo: 0.4,
+                        stops: [0, 90, 100]
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'smooth',
+                    width: 2
+                },
+                xaxis: {
+                    type: 'text',
+                    categories: ["Alimentacion", "Vivienda", "Servicios", "Otros"]
+                },
+                tooltip: {
+                    x: {
+                        format: 'dd/MM/yy HH:mm'
+                    },
+                }
+            }).render();
 
-
-
+            console.log("Hola")
         })
         .catch(error => {
             console.error('Error:', error);
         });
 });
-
-console.log("Hola")
