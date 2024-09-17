@@ -3,8 +3,8 @@ from flask_cors import CORS
 from estudianteFiles.presupuestos import mostrarTotalP, leerPresupuestosE, editarPresupuestoE, definirMeta
 from estudianteFiles.gastos import leerGastosE, mostrarTotalGastos, añadirGastoE, sumarGastos, editar_Ahorro
 from estudianteFiles.pendientes import añadir_pendiente, eliminar_pendiente, obtener_pendientes
-from hogarFiles.presupuestos import  leerPresupuestosH
-from hogarFiles.gastos import leerGastosH,sumarGastosH
+from hogarFiles.presupuestos import  leerPresupuestosH, editarPresupuestoH,definirMetaH
+from hogarFiles.gastos import leerGastosH,sumarGastosH,añadirGastoH
 app = Flask(__name__)
 CORS(app)  # Habilita CORS para todas las rutas
 
@@ -114,6 +114,25 @@ def editar_presupuesto():
             return jsonify({"success": False, "message": mensaje}), 404
     except Exception as e:
         return jsonify({"success": False, "message": str(e)}), 500
+    
+@app.route('/editar_presupuestoH', methods=['POST'])
+def editar_presupuestoH():
+    data = request.get_json()
+    usuario = name
+    categoria = data.get('categoria')
+    nuevo_presupuesto = data.get('nuevoPresupuesto')
+
+    if not categoria or not nuevo_presupuesto:
+        return jsonify({"success": False, "message": "Datos incompletos"}), 400
+
+    try:
+        exito, mensaje = editarPresupuestoH(usuario, categoria, nuevo_presupuesto)
+        if exito:
+            return jsonify({"success": True})
+        else:
+            return jsonify({"success": False, "message": mensaje}), 404
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
 
 
 @app.route('/editar_gasto', methods=['POST'])
@@ -135,6 +154,25 @@ def editar_gasto():
     except Exception as e:
         return jsonify({"success": False, "message": str(e)}), 500
 
+@app.route('/editar_gastoH', methods=['POST'])
+def editar_gastoH():
+    data = request.get_json()
+    usuario = name
+    categoria = data.get('categoria')
+    nuevo_gasto = data.get('nuevoGasto')
+
+    if not categoria or not nuevo_gasto:
+        return jsonify({"success": False, "message": "Datos incompletos"}), 400
+
+    try:
+        exito, mensaje = añadirGastoH(usuario, categoria, nuevo_gasto)
+        if exito:
+            return jsonify({"success": True})
+        else:
+            return jsonify({"success": False, "message": mensaje}), 404
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
+
 
 @app.route('/definir_meta', methods=['POST'])
 def definir_meta():
@@ -147,6 +185,24 @@ def definir_meta():
 
     try:
         exito, mensaje = definirMeta(usuario, nueva_meta)
+        if exito:
+            return jsonify({"success": True})
+        else:
+            return jsonify({"success": False, "message": mensaje}), 404
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
+    
+@app.route('/definir_metaH', methods=['POST'])
+def definir_metaH():
+    data = request.get_json()
+    usuario = name
+    nueva_meta = data.get('meta')
+
+    if not nueva_meta:
+        return jsonify({"success": False, "message": "Meta no proporcionada"}), 400
+
+    try:
+        exito, mensaje = definirMetaH(usuario, nueva_meta)
         if exito:
             return jsonify({"success": True})
         else:

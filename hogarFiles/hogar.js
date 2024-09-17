@@ -156,3 +156,90 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error('Error:', error);
         });
 });
+
+
+document.getElementById('formEditarPresupuesto').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    var categoria = document.getElementById('categoria').value;
+    var nuevoPresupuesto = document.getElementById('nuevoPresupuesto').value;
+
+    // Enviar los datos al servidor
+    fetch('http://127.0.0.1:5000/editar_presupuestoH', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            categoria: categoria,
+            nuevoPresupuesto: nuevoPresupuesto
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Presupuesto actualizado correctamente');
+                location.reload();
+            } else {
+                alert('Error al actualizar el presupuesto');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+});
+
+document.getElementById('formEditarGasto').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    var categoria = document.getElementById('categoriaGasto').value;
+    var nuevoGasto = document.getElementById('nuevoGasto').value;
+
+    // Enviar los datos al servidor
+    fetch('http://127.0.0.1:5000/editar_gastoH', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            categoria: categoria,
+            nuevoGasto: nuevoGasto
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (data.success) {
+                alert('Gasto añadido correctamente');
+                location.reload();
+            } else {
+                alert('Error al añadir el gasto');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+});
+
+document.getElementById('formDefinirMeta').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    var nuevaMeta = document.getElementById('ahorro').value;
+
+    // Enviar los datos al servidor
+    fetch('http://127.0.0.1:5000/definir_metaH', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            meta: nuevaMeta
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Meta de ahorro actualizada correctamente');
+                location.reload();
+            } else {
+                alert('Error al actualizar la meta: ' + data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+});

@@ -37,7 +37,7 @@ def editarPresupuestoH(name, categoria, nuevoPresupuesto):
 
 
 #funcion para definir la meta de ahorro
-def definirMeta(name, nuevaMeta):
+def definirMetaH(name, nuevaMeta):
     try:
         with open("hogarFiles/archivosTxt/presupuestos.txt", "r") as archivo:
             presupuestos = eval(archivo.read())
